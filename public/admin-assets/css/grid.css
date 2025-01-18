@@ -318,3 +318,7 @@
         width: 100%;
     }
 }
+
+.max-height-2{
+    max-height: 2.4rem;
+}

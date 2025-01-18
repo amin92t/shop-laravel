@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\Market\BrandController;
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\Market\CategoryController;
 
@@ -22,6 +23,20 @@ Route::prefix('admin')->namespace('Admin')->group(function(){
             Route::get('/edit/{id}',[CategoryController::class, 'edit'])->name('admin.market.category.edit');
             Route::get('/update/{id}',[CategoryController::class, 'update'])->name('admin.market.category.update');
             Route::get('/delete/{id}',[CategoryController::class, 'delete'])->name('admin.market.category.delete');
+
+        });
+
+
+
+        Route::prefix('brand')->group(function(){
+
+            Route::get('/',[BrandController::class, 'index'])->name('admin.market.brand.index');
+            Route::get('/create',[BrandController::class, 'create'])->name('admin.market.brand.create');
+            Route::get('/store',[BrandController::class, 'store'])->name('admin.market.brand.store');
+            Route::get('/edit/{id}',[BrandController::class, 'edit'])->name('admin.market.brand.edit');
+            Route::get('/update/{id}',[BrandController::class, 'update'])->name('admin.market.brand.update');
+            Route::get('/delete/{id}',[BrandController::class, 'delete'])->name('admin.market.brand.delete');
+
 
         });
 
