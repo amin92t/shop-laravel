@@ -168,11 +168,13 @@
     right: 0;
     top: 3rem;
     z-index: 1000000;
+    /* position: fixed; */
 }
 
 .sidebar-wrapper{
     padding: 1rem 0;
     overflow: auto;
+    height: 100%;
 }
 
 .sidebar-wrapper::-webkit-scrollbar{
