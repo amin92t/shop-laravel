@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\Market\BrandController;
 use App\Http\Controllers\Admin\AdminDashboardController;
+use App\Http\Controllers\Admin\Market\CommentController;
 use App\Http\Controllers\Admin\Market\CategoryController;
 
 
@@ -38,6 +39,17 @@ Route::prefix('admin')->namespace('Admin')->group(function(){
             Route::get('/delete/{id}',[BrandController::class, 'delete'])->name('admin.market.brand.delete');
 
 
+        });
+
+
+        Route::prefix('comment')->group(function(){
+
+            Route::get('/', [CommentController::class, 'index'])->name('admin.market.comment.index');
+            Route::get('/show',[CommentController::class, 'show'])->name('admin.market.comment.show');
+            Route::get('/store',[CommentController::class, 'store'])->name('admin.market.comment.store');
+            Route::get('/edit/{id}',[CommentController::class, 'edit'])->name('admin.market.comment.edit');
+            Route::get('/update/{id}',[CommentController::class, 'update'])->name('admin.market.comment.update');
+            Route::get('/delete/{id}',[CommentController::class, 'delete'])->name('admin.market.comment.delete');
         });
 
     });
