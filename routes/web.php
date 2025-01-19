@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\Market\ProductController;
 use App\Http\Controllers\Admin\Market\CategoryController;
 use App\Http\Controllers\Admin\Market\DeliveryController;
 use App\Http\Controllers\Admin\Market\DiscountController;
+use App\Http\Controllers\Admin\Market\PropertyController;
 
 
 Route::prefix('admin')->namespace('Admin')->group(function(){
@@ -128,6 +129,18 @@ Route::prefix('admin')->namespace('Admin')->group(function(){
             Route::post('/gallery/store', [GalleryController::class, 'store'])->name('admin.market.gallery.index');
             Route::delete('/gallery/destroy/{id}', [GalleryController::class, 'destroy'])->name('admin.market.gallery.index');
             
+
+        });
+
+
+        Route::prefix('property')->group(function(){
+            
+            Route::get('/', [PropertyController::class, 'index'])->name('admin.market.property.index');
+            Route::get('/create',[PropertyController::class, 'create'])->name('admin.market.property.create');
+            Route::post('/store',[PropertyController::class, 'store'])->name('admin.market.property.store');
+            Route::get('/edit/{id}',[PropertyController::class, 'edit'])->name('admin.market.property.edit');
+            Route::put('/update/{id}',[PropertyController::class, 'update'])->name('admin.market.property.update');
+            Route::delete('/delete/{id}',[PropertyController::class, 'delete'])->name('admin.market.property.delete');
 
         });
 
