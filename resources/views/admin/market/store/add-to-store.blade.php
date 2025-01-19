@@ -3,7 +3,7 @@
 
 
 @section('head-tag')
-<title>ایجاد فرم کالا</title>
+<title>افزودن به انبار</title>
 @endsection
 
 @section('content')
@@ -13,7 +13,7 @@
         <li class="breadcrumb-item"><a href="#">خانه</a></li>
         <li class="breadcrumb-item"><a href="#"></a></li>
         <li class="breadcrumb-item"><a href="#">بخش فروش</a></li>
-        <li class="breadcrumb-item active" aria-current="page">ایجاد فرم کالا</li>
+        <li class="breadcrumb-item active" aria-current="page">افزودن به انبار</li>
     </ol>
 </nav>
 
@@ -25,13 +25,13 @@
         <section class="main-body-container-head">
 
             <h5>
-                ایجاد فرم کالا
+               افزودن به انبار
             </h5>
 
 
         </section>
         <section class="d-flex justify-content-between align-items-center mb-3 py-4 border-bottom">
-            <a href="{{route('admin.market.property.index')}}" class="btn btn-info btn-sm">بازگشت</a>
+            <a href="{{route('admin.market.store.index')}}" class="btn btn-info btn-sm">بازگشت</a>
         </section>
         <section>
 
@@ -41,24 +41,37 @@
 
                     <section class="col-12 col-md-6">
                         <div class="form-group">
-                            <label for="">نام فرم</label>
+                            <label for="">نام تحویل گیرنده</label>
+                            <input class="form-control form-control-sm" type="text">
+                        </div>
+                    </section>
+
+                    
+                    <section class="col-12 col-md-6">
+                        <div class="form-group">
+                            <label for="">نام تحویل دهنده</label>
                             <input class="form-control form-control-sm" type="text">
                         </div>
                     </section>
 
 
+                    
                     <section class="col-12 col-md-6">
-
                         <div class="form-group">
-                            <label for="">فرم والد</label>
-                            <select class="form-control form-control-sm" name="" id="">
-                                <option value="">فرم را انتخاب کنید</option>
-                                <option value="">وسایل الکترونیکی</option>
-
-                            </select> 
+                            <label for="">تعداد</label>
+                            <input class="form-control form-control-sm" type="text">
                         </div>
-
                     </section>
+
+                    <section class="col-12 ">
+                        <div class="form-group">
+                            <label for="">تعداد</label>
+                            <textarea class="form-control form-control-sm" type="text" rows="5">
+                            </textarea>
+                        </div>
+                    </section>
+
+                    
                 </section>
                 <section>
                     <button class="btn btn-primary btn-sm">ثبت</button>

@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\Market\BrandController;
 use App\Http\Controllers\Admin\Market\OrderController;
+use App\Http\Controllers\Admin\Market\StoreController;
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\Market\CommentController;
 use App\Http\Controllers\Admin\Market\GalleryController;
@@ -141,6 +142,18 @@ Route::prefix('admin')->namespace('Admin')->group(function(){
             Route::get('/edit/{id}',[PropertyController::class, 'edit'])->name('admin.market.property.edit');
             Route::put('/update/{id}',[PropertyController::class, 'update'])->name('admin.market.property.update');
             Route::delete('/delete/{id}',[PropertyController::class, 'delete'])->name('admin.market.property.delete');
+
+        });
+
+
+        Route::prefix('store')->group(function(){
+
+            Route::get('/', [StoreController::class, 'index'])->name('admin.market.store.index');
+            Route::get('/add-to-store', [StoreController::class, 'addToStore'])->name('admin.market.store.add-to-store');
+            Route::post('/store', [StoreController::class, 'store'])->name('admin.market.store.store');
+            Route::get('/edit/{id}', [StoreController::class, 'edit'])->name('admin.market.store.edit');
+            Route::put('/update/{id}', [StoreController::class, 'update'])->name('admin.market.store.update');
+            Route::delete('/delete/{id}', [StoreController::class, 'delete'])->name('admin.market.store.delete');
 
         });
 
