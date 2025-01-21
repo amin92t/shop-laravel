@@ -107,11 +107,11 @@
                             </div>
                         </section>
 
-                        <section class="col-6 col-md-3">
+                        <sشection class="col-6 col-md-3">
                             <div class="form-group">
                                 <input placeholder="مقدار" type="text" name="" id="" class="form-control form-control-sm">
                             </div>
-                        </section>
+                        </sشection>
 
                     </div>
 
