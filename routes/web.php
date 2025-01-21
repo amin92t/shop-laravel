@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\User\RoleController;
+use App\Http\Controllers\Admin\Notify\SMSController;
 use App\Http\Controllers\Admin\Content\FAQController;
 use App\Http\Controllers\Admin\Content\MenuController;
 use App\Http\Controllers\Admin\Content\PageController;
@@ -9,6 +10,8 @@ use App\Http\Controllers\Admin\Content\PostController;
 use App\Http\Controllers\Admin\Market\BrandController;
 use App\Http\Controllers\Admin\Market\OrderController;
 use App\Http\Controllers\Admin\Market\StoreController;
+use App\Http\Controllers\Admin\Notify\EmailController;
+use App\Http\Controllers\Admin\Ticket\TicketController;
 use App\Http\Controllers\Admin\User\CustomerController;
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\Market\CommentController;
@@ -20,6 +23,7 @@ use App\Http\Controllers\Admin\Market\CategoryController;
 use App\Http\Controllers\Admin\Market\DeliveryController;
 use App\Http\Controllers\Admin\Market\DiscountController;
 use App\Http\Controllers\Admin\Market\PropertyController;
+use App\Http\Controllers\Admin\Setting\SettingController;
 use App\Http\Controllers\Admin\User\PermissionController;
 use App\Http\Controllers\Admin\Content\CommentController as ContentCommentController;
 use App\Http\Controllers\Admin\Content\CategoryController as ContentCategoryController;
@@ -215,47 +219,98 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
     });
 
 
-    Route::prefix('user')->namespace('User')->group(function(){
+    Route::prefix('user')->namespace('User')->group(function () {
 
         //admin-user
-        Route::prefix('admin-user')->group(function(){
+        Route::prefix('admin-user')->group(function () {
             Route::get('/', [AdminUserController::class, 'index'])->name('admin.user.admin-user.index');
             Route::get('/create', [AdminUserController::class, 'create'])->name('admin.user.admin-user.create');
             Route::post('/store', [AdminUserController::class, 'store'])->name('admin.user.admin-user.store');
             Route::get('/edit/{id}', [AdminUserController::class, 'edit'])->name('admin.user.admin-user.edit');
             Route::put('/update/{id}', [AdminUserController::class, 'update'])->name('admin.user.admin-user.update');
             Route::delete('/delete/{id}', [AdminUserController::class, 'delete'])->name('admin.user.admin-user.delete');
-    });
+        });
 
         //customer
-        Route::prefix('customer')->group(function(){
+        Route::prefix('customer')->group(function () {
             Route::get('/', [CustomerController::class, 'index'])->name('admin.user.customer.index');
             Route::get('/create', [CustomerController::class, 'create'])->name('admin.user.customer.create');
             Route::post('/store', [CustomerController::class, 'store'])->name('admin.user.customer.store');
             Route::get('/edit/{id}', [CustomerController::class, 'edit'])->name('admin.user.customer.edit');
             Route::put('/update/{id}', [CustomerController::class, 'update'])->name('admin.user.customer.update');
             Route::delete('/delete/{id}', [CustomerController::class, 'delete'])->name('admin.user.customer.delete');
-    });
+        });
 
-    //role
-        Route::prefix('role')->group(function(){
+        //role
+        Route::prefix('role')->group(function () {
             Route::get('/', [RoleController::class, 'index'])->name('admin.user.role.index');
             Route::get('/create', [RoleController::class, 'create'])->name('admin.user.role.create');
             Route::post('/store', [RoleController::class, 'store'])->name('admin.user.role.store');
             Route::get('/edit/{id}', [RoleController::class, 'edit'])->name('admin.user.role.edit');
             Route::put('/update/{id}', [RoleController::class, 'update'])->name('admin.user.role.update');
             Route::delete('/delete/{id}', [RoleController::class, 'delete'])->name('admin.user.role.delete');
-    });
+        });
 
-    //permission
-        Route::prefix('permission')->group(function(){
+        //permission
+        Route::prefix('permission')->group(function () {
             Route::get('/', [PermissionController::class, 'index'])->name('admin.user.permission.index');
             Route::get('/create', [PermissionController::class, 'create'])->name('admin.user.permission.create');
             Route::post('/store', [PermissionController::class, 'store'])->name('admin.user.permission.store');
             Route::get('/edit/{id}', [PermissionController::class, 'edit'])->name('admin.user.permission.edit');
             Route::put('/update/{id}', [PermissionController::class, 'update'])->name('admin.user.permission.update');
             Route::delete('/delete/{id}', [PermissionController::class, 'delete'])->name('admin.user.permission.delete');
+        });
+    });
+
+
+    Route::prefix('notify')->namespace('Notify')->group(function(){
+
+        //email
+        Route::prefix('email')->group(function(){
+            Route::get('/', [EmailController::class, 'index'])->name('admin.notify.email.index');
+            Route::get('/create', [EmailController::class, 'create'])->name('admin.notify.email.create');
+            Route::post('/store', [EmailController::class, 'store'])->name('admin.notify.email.store');
+            Route::get('/edit/{id}', [EmailController::class, 'edit'])->name('admin.notify.email.edit');
+            Route::put('/update/{id}', [EmailController::class, 'update'])->name('admin.notify.email.update');
+            Route::delete('/delete/{id}', [EmailController::class, 'delete'])->name('admin.notify.email.delete');
+    });
+
+        //sms
+        Route::prefix('sms')->group(function(){
+            Route::get('/', [SMSController::class, 'index'])->name('admin.notify.sms.index');
+            Route::get('/create', [SMSController::class, 'create'])->name('admin.notify.sms.create');
+            Route::post('/store', [SMSController::class, 'store'])->name('admin.notify.sms.store');
+            Route::get('/edit/{id}', [SMSController::class, 'edit'])->name('admin.notify.sms.edit');
+            Route::put('/update/{id}', [SMSController::class, 'update'])->name('admin.notify.sms.update');
+            Route::delete('/delete/{id}', [SMSController::class, 'delete'])->name('admin.notify.sms.delete');
     });
 
     });
+
+    Route::prefix('ticket')->namespace('Ticket')->group(function(){
+
+        Route::get('/new-tickets', [TicketController::class, 'newTickets'])->name('admin.ticket.newTickets');
+        Route::get('/open-tickets', [TicketController::class, 'openTickets'])->name('admin.ticket.openTickets');
+        Route::get('/close-tickets', [TicketController::class, 'closeTickets'])->name('admin.ticket.closeTickets');
+        Route::get('/', [TicketController::class, 'index'])->name('admin.ticket.index');
+        Route::get('/show', [TicketController::class, 'show'])->name('admin.ticket.show');
+        Route::get('/create', [TicketController::class, 'create'])->name('admin.ticket.create');
+        Route::post('/store', [TicketController::class, 'store'])->name('admin.ticket.store');
+        Route::get('/edit/{id}', [TicketController::class, 'edit'])->name('admin.ticket.edit');
+        Route::put('/update/{id}', [TicketController::class, 'update'])->name('admin.ticket.update');
+        Route::delete('/delete/{id}', [TicketController::class, 'delete'])->name('admin.ticket.delete');
+
+    });
+
+    Route::prefix('setting')->namespace('Setting')->group(function(){
+
+        Route::get('/', [SettingController::class, 'index'])->name('admin.setting.index');
+        Route::get('/create', [SettingController::class, 'create'])->name('admin.setting.create');
+        Route::post('/store', [SettingController::class, 'store'])->name('admin.setting.store');
+        Route::get('/edit/{id}', [SettingController::class, 'edit'])->name('admin.setting.edit');
+        Route::put('/update/{id}', [SettingController::class, 'update'])->name('admin.setting.update');
+        Route::delete('/delete/{id}', [SettingController::class, 'delete'])->name('admin.setting.delete');
+
+    });
+
 });
