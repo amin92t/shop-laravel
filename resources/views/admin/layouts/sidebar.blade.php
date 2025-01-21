@@ -135,7 +135,7 @@
     <!-- Users in aside -->
     <section class="sidebar-part-title">بخش کاربران</section>
 
-    <a href="#" class="sidebar-link">
+    <a href="{{route('admin.user.admin-user.index')}}" class="sidebar-link">
                 <i class="fas fa-bars"></i>
                 <span>کاربران ادمین</span>
             </a>
