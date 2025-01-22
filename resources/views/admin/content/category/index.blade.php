@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-
+{{-- {{dd($postCategories)}} --}}
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="#">خانه</a></li>
@@ -42,15 +42,24 @@
                             <tr>
                                 <th>#</th>
                                 <th>نام دسته بندی</th>
-                                <th>دسته والد</th>
+                                <th>توضیحات</th>
+                                <th>slug</th>
+                                <th>عکس</th>
+                                <th>تگ ها</th>
                                 <th>تنظیمات</th>
                             </tr>
                         </thead>
                         <tbody>
+                            @foreach ($postCategories as $postCategory)
                             <tr>
-                                <th>1</th>
-                                <td>نمایشگر</td>
-                                <td>کالای الکترونیک</td>
+                                <th>{{$postCategory->id}}</th>
+                                <td>{{$postCategory->name}}</td>
+                                <td>{{$postCategory->description}}</td>
+                                <td>{{$postCategory->slug}}</td>
+                                <td>
+                                    <img src="{{asset($postCategory->image)}}" >
+                                </td>
+                                <td>{{$postCategory->tags}}</td>
                                 <td>
                                     <a href="#" class="btn btn-primary btn-sm">
                                         <i class="fa fa-edit"></i> ویرایش 
@@ -60,6 +69,8 @@
                                     </button>
                                 </td>
                             </tr>
+                            @endforeach
+                            
                         </tbody>
 
                 </table>
