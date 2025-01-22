@@ -12,8 +12,7 @@
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="#">خانه</a></li>
         <li class="breadcrumb-item"><a href="#"></a></li>
-        <li class="breadcrumb-item"><a href="#">بخش فروش</a></li>
-        <li class="breadcrumb-item"><a href="#">ویترین</a></li>
+        <li class="breadcrumb-item"><a href="#">بخش محتوی</a></li>
         <li class="breadcrumb-item active" aria-current="page">ایجاد دسته بندی</li>
     </ol>
 </nav>
@@ -32,7 +31,7 @@
 
         </section>
         <section class="d-flex justify-content-between align-items-center mb-3 py-4 border-bottom">
-            <a href="{{route('admin.market.category.index')}}" class="btn btn-info btn-sm">بازگشت</a>
+            <a href="{{route('admin.content.category.index')}}" class="btn btn-info btn-sm">بازگشت</a>
         </section>
         <section>
 

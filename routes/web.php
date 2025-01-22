@@ -162,12 +162,19 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
 
 
         Route::prefix('category')->group(function () {
+
             Route::get('/', [ContentCategoryController::class, 'index'])->name('admin.content.category.index');
             Route::get('/craete', [ContentCategoryController::class, 'create'])->name('admin.content.category.create');
             Route::post('/store', [ContentCategoryController::class, 'store'])->name('admin.content.category.store');
-            Route::get('/edit/{id}', [ContentCategoryController::class, 'edit'])->name('admin.content.category.edit');
-            Route::put('/update/{id}', [ContentCategoryController::class, 'update'])->name('admin.content.category.update');
-            Route::delete('/delete/{id}', [ContentCategoryController::class, 'delete'])->name('admin.content.category.delete');
+            Route::get('/edit/{PostCategory}', [ContentCategoryController::class, 'edit'])->name('admin.content.category.edit');
+            Route::put('/update/{PostCategory}', [ContentCategoryController::class, 'update'])->name('admin.content.category.update');
+            Route::delete('/delete/{PostCategory}', [ContentCategoryController::class, 'delete'])->name('admin.content.category.delete');
+            Route::get('/status/{PostCategory}', [ContentCategoryController::class, 'status'])->name('admin.content.category.status');
+
+            //     Route::get('/edit/{id}', [ContentCategoryController::class, 'edit'])->name('admin.content.category.edit');
+            //     Route::put('/update/{id}', [ContentCategoryController::class, 'update'])->name('admin.content.category.update');
+            //     Route::delete('/delete/{id}', [ContentCategoryController::class, 'delete'])->name('admin.content.category.delete');
+
         });
 
         Route::prefix('comment')->group(function () {
@@ -263,31 +270,30 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
     });
 
 
-    Route::prefix('notify')->namespace('Notify')->group(function(){
+    Route::prefix('notify')->namespace('Notify')->group(function () {
 
         //email
-        Route::prefix('email')->group(function(){
+        Route::prefix('email')->group(function () {
             Route::get('/', [EmailController::class, 'index'])->name('admin.notify.email.index');
             Route::get('/create', [EmailController::class, 'create'])->name('admin.notify.email.create');
             Route::post('/store', [EmailController::class, 'store'])->name('admin.notify.email.store');
             Route::get('/edit/{id}', [EmailController::class, 'edit'])->name('admin.notify.email.edit');
             Route::put('/update/{id}', [EmailController::class, 'update'])->name('admin.notify.email.update');
             Route::delete('/delete/{id}', [EmailController::class, 'delete'])->name('admin.notify.email.delete');
-    });
+        });
 
         //sms
-        Route::prefix('sms')->group(function(){
+        Route::prefix('sms')->group(function () {
             Route::get('/', [SMSController::class, 'index'])->name('admin.notify.sms.index');
             Route::get('/create', [SMSController::class, 'create'])->name('admin.notify.sms.create');
             Route::post('/store', [SMSController::class, 'store'])->name('admin.notify.sms.store');
             Route::get('/edit/{id}', [SMSController::class, 'edit'])->name('admin.notify.sms.edit');
             Route::put('/update/{id}', [SMSController::class, 'update'])->name('admin.notify.sms.update');
             Route::delete('/delete/{id}', [SMSController::class, 'delete'])->name('admin.notify.sms.delete');
+        });
     });
 
-    });
-
-    Route::prefix('ticket')->namespace('Ticket')->group(function(){
+    Route::prefix('ticket')->namespace('Ticket')->group(function () {
 
         Route::get('/new-tickets', [TicketController::class, 'newTickets'])->name('admin.ticket.newTickets');
         Route::get('/open-tickets', [TicketController::class, 'openTickets'])->name('admin.ticket.openTickets');
@@ -299,10 +305,9 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
         Route::get('/edit/{id}', [TicketController::class, 'edit'])->name('admin.ticket.edit');
         Route::put('/update/{id}', [TicketController::class, 'update'])->name('admin.ticket.update');
         Route::delete('/delete/{id}', [TicketController::class, 'delete'])->name('admin.ticket.delete');
-
     });
 
-    Route::prefix('setting')->namespace('Setting')->group(function(){
+    Route::prefix('setting')->namespace('Setting')->group(function () {
 
         Route::get('/', [SettingController::class, 'index'])->name('admin.setting.index');
         Route::get('/create', [SettingController::class, 'create'])->name('admin.setting.create');
@@ -310,7 +315,5 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
         Route::get('/edit/{id}', [SettingController::class, 'edit'])->name('admin.setting.edit');
         Route::put('/update/{id}', [SettingController::class, 'update'])->name('admin.setting.update');
         Route::delete('/delete/{id}', [SettingController::class, 'delete'])->name('admin.setting.delete');
-
     });
-
 });

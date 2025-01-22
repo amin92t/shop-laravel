@@ -46,6 +46,7 @@
                                 <th>slug</th>
                                 <th>عکس</th>
                                 <th>تگ ها</th>
+                                <th>وضعیت</th>
                                 <th>تنظیمات</th>
                             </tr>
                         </thead>
@@ -61,12 +62,23 @@
                                 </td>
                                 <td>{{$postCategory->tags}}</td>
                                 <td>
-                                    <a href="#" class="btn btn-primary btn-sm">
+                                    <label>
+                                        <input type="checkbox" @if($postCategory->status == 1) checked @endif >
+                                    </label>
+                                </td>
+                                <td>
+                                    <a href="{{route('admin.content.category.edit', $postCategory->id)}}" class="btn btn-primary btn-sm">
                                         <i class="fa fa-edit"></i> ویرایش 
                                     </a>
-                                    <button class="btn btn-danger btn-sm" type="submit">
-                                        <i class="fa fa-trash-alt"></i>حذف
-                                    </button>
+                                    <form class="d-inline" action="{{route('admin.content.category.delete', $postCategory->id)}}" method="POST">
+                                        @csrf
+                                        {{-- {{method_field('delete')}} --}}
+                                        @method('DELETE')
+                                        <button class="btn btn-danger btn-sm" type="submit">
+                                            <i class="fa fa-trash-alt"></i>حذف
+                                        </button>
+                                    </form>
+                                   
                                 </td>
                             </tr>
                             @endforeach

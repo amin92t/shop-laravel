@@ -19,4 +19,13 @@ class CategoryController extends Controller
     public function create(){
         return view('admin.content.category.create');
     }
+
+    public function edit(PostCategory $postCategory){
+        dd($postCategory);
+    }
+
+    public function delete(PostCategory $postCategory){
+        $postCategory->delete();
+        return redirect()->route('admin.content.category.index');
+    }
 }
