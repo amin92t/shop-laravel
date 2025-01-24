@@ -72,7 +72,7 @@
                                     </a>
                                     <form class="d-inline" action="{{route('admin.content.category.delete', $postCategory->id)}}" method="POST">
                                         @csrf
-                                        {{-- {{method_field('delete')}} --}}
+                                        {{method_field('delete')}}
                                         @method('DELETE')
                                         <button class="btn btn-danger btn-sm" type="submit">
                                             <i class="fa fa-trash-alt"></i>حذف

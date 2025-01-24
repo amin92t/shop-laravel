@@ -35,14 +35,36 @@
         </section>
         <section>
 
-            <form action="" method="">
+            <form action="{{route('admin.content.category.store')}}" method="post" enctype="multipart/form-data">
+                @csrf
 
                 <section class="row">
 
                     <section class="col-12 col-md-6">
                         <div class="form-group">
                             <label for="">نام دسته</label>
-                            <input class="form-control form-control-sm" type="text">
+                            <input class="form-control form-control-sm" type="text" name="name" value="{{old('name')}}">
+                        </div>
+                        @error('name')
+                            <span class="alert_required bg-danger text-white p-1 rounded" role="alert">
+                                <strong>
+                                    {{$message}}
+                                </strong>
+                            </span>
+                        @enderror
+                    </section>
+
+                    <section class="col-12 col-md-6">
+                        <div class="form-group">
+                            <label for="">نام دسته</label>
+                            <input class="form-control form-control-sm" type="text" name="tags" value="{{old('tags')}}">
+                            @error('tags')
+                            <span class="alert_required bg-danger text-white p-1 rounded" role="alert">
+                                <strong>
+                                    {{$message}}
+                                </strong>
+                            </span>
+                        @enderror
                         </div>
                     </section>
 
@@ -50,15 +72,53 @@
                     <section class="col-12 col-md-6">
 
                         <div class="form-group">
-                            <label for="">نام دسته</label>
-                            <select class="form-control form-control-sm" name="" id="">
-                                <option value="">دسته را انتخاب کنید</option>
-                                <option value="">وسایل الکترونیکی</option>
-
+                            <label for="">وضعیت</label>
+                            <select class="form-control form-control-sm" name="status" id="">
+                                <option value="0" @if (old('status') == 0)
+                                 selected
+                                @endif>غیر فعال</option>
+                                <option value="1" @if (old('status') == 1)
+                                selected
+                               @endif>فعال</option>
                             </select>
                         </div>
 
                     </section>
+
+
+                    <section class="col-12 col-md-6">
+
+                        <div class="form-group">
+                            <label for="">تصویر</label>
+                            <input  class="form-control form-control-sm" type="file" name="image" id="">
+                        </div>
+                        @error('image')
+                        <span class="alert_required bg-danger text-white p-1 rounded" role="alert">
+                            <strong>
+                                {{$message}}
+                            </strong>
+                        </span>
+                    @enderror
+                    </section>
+
+
+                    <section class="col-12">
+                        <div class="form-group">
+                            <label for="">متن</label>
+                            <textarea class="form-control form-control-sm" type="text" name="description" rows="5">
+                                {{old('description')}}
+                            </textarea>
+                        </div>
+                        @error('description')
+                        <span class="alert_required bg-danger text-white p-1 rounded" role="alert">
+                            <strong>
+                                {{$message}}
+                            </strong>
+                        </span>
+                    @enderror
+                    </section>
+
+
                 </section>
                 <section>
                     <button class="btn btn-primary btn-sm">ثبت</button>

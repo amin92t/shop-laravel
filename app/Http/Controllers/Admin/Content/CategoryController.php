@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Admin\Content;
 
+use Illuminate\Support\Str;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Content\PostCategory;
-use Illuminate\Http\Request;
+use App\Http\Requests\Admin\Content\PostCategoryRequest;
 
 class CategoryController extends Controller
 {
@@ -27,5 +29,18 @@ class CategoryController extends Controller
     public function delete(PostCategory $postCategory){
         $postCategory->delete();
         return redirect()->route('admin.content.category.index');
+    }
+
+    // Form Request Validation
+    public function store(PostCategoryRequest $request){
+
+        $inputs = $request->all();
+        $slug = str_replace(" ", "-", $inputs["name"]). "-" . Str::random(5);
+        $inputs["slug"] = $slug;
+        // $postCategory = PostCategory::create($inputs);
+        PostCategory::create($inputs);
+        return redirect()->route('admin.content.category.index');
+
+
     }
 }
