@@ -168,7 +168,7 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
             Route::post('/store', [ContentCategoryController::class, 'store'])->name('admin.content.category.store');
             Route::get('/edit/{PostCategory}', [ContentCategoryController::class, 'edit'])->name('admin.content.category.edit');
             Route::put('/update/{PostCategory}', [ContentCategoryController::class, 'update'])->name('admin.content.category.update');
-            Route::delete('/delete/{PostCategory}', [ContentCategoryController::class, 'delete'])->name('admin.content.category.delete');
+            Route::delete('/destroy/{PostCategory}', [ContentCategoryController::class, 'destroy'])->name('admin.content.category.destroy');
             Route::get('/status/{PostCategory}', [ContentCategoryController::class, 'status'])->name('admin.content.category.status');
 
             //     Route::get('/edit/{id}', [ContentCategoryController::class, 'edit'])->name('admin.content.category.edit');

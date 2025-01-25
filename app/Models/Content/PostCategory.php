@@ -9,5 +9,7 @@ class PostCategory extends Model
 {
     use SoftDeletes;
 
+    protected $table = 'post_categories';  // نام جدول
+    protected $guarded = ['id'];  // فیلدهای محافظت شده
     protected $fillable = ['name', 'description', 'slug', 'image', 'status', 'tags'];
 }

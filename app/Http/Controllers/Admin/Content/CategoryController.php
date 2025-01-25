@@ -23,12 +23,15 @@ class CategoryController extends Controller
     }
 
     public function edit(PostCategory $postCategory){
-        dd($postCategory);
+        // dd($postCategory);
+        return view('admin.content.category.edit', compact('postCategory'));
+
     }
 
-    public function delete(PostCategory $postCategory){
+    public function destroy(PostCategory $postCategory){
         $postCategory->delete();
         return redirect()->route('admin.content.category.index');
+     
     }
 
     // Form Request Validation
@@ -41,6 +44,16 @@ class CategoryController extends Controller
         PostCategory::create($inputs);
         return redirect()->route('admin.content.category.index');
 
+
+    }
+
+    public function update(PostCategoryRequest $request,PostCategory $postCategory ){
+        $inputs = $request->all();
+        $inputs["image"] = 'image';
+        $slug = str_replace(" ", "-", $inputs["name"]). "-" . Str::random(5);
+        $inputs["slug"] = $slug;
+        $postCategory->update($inputs);
+        return redirect()->route('admin.content.category.index');
 
     }
 }
