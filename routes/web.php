@@ -173,6 +173,7 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
             
         });
 
+        
         Route::prefix('comment')->group(function () {
             Route::get('/', [ContentCommentController::class, 'index'])->name('admin.content.comment.index');
             Route::get('/show', [ContentCommentController::class, 'show'])->name('admin.content.comment.show');
