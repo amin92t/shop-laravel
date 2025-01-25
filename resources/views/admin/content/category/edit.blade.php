@@ -3,11 +3,7 @@
 
 
 @section('head-tag')
-<<<<<<< HEAD
 <title>ویرایش دسته بندی</title>
-=======
-<title>ایجاد دسته بندی</title>
->>>>>>> 6426192f365b622e709a6af2bbfd4adf7b0c43c8
 @endsection
 
 @section('content')
@@ -17,11 +13,7 @@
         <li class="breadcrumb-item"><a href="#">خانه</a></li>
         <li class="breadcrumb-item"><a href="#"></a></li>
         <li class="breadcrumb-item"><a href="#">بخش محتوی</a></li>
-<<<<<<< HEAD
         <li class="breadcrumb-item active" aria-current="page">ویرایش دسته بندی</li>
-=======
-        <li class="breadcrumb-item active" aria-current="page">ایجاد دسته بندی</li>
->>>>>>> 6426192f365b622e709a6af2bbfd4adf7b0c43c8
     </ol>
 </nav>
 
@@ -33,11 +25,7 @@
         <section class="main-body-container-head">
 
             <h5>
-<<<<<<< HEAD
                 ویرایش دسته بندی
-=======
-                ایجاد دسته بندی
->>>>>>> 6426192f365b622e709a6af2bbfd4adf7b0c43c8
             </h5>
 
 
@@ -47,16 +35,11 @@
         </section>
         <section>
 
-<<<<<<< HEAD
             <form action="{{route('admin.content.category.update', $postCategory->id)}}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
-=======
-            <form action="#" method="POST" enctype="multipart/form-data">
-                @csrf
-                @method('PUT')
+        
 
->>>>>>> 6426192f365b622e709a6af2bbfd4adf7b0c43c8
                 <section class="row">
 
                     <section class="col-12 col-md-6">

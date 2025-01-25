@@ -23,10 +23,6 @@ class CategoryController extends Controller
     }
 
     public function edit(PostCategory $postCategory){
-<<<<<<< HEAD
-        // dd($postCategory);
-=======
->>>>>>> 6426192f365b622e709a6af2bbfd4adf7b0c43c8
         return view('admin.content.category.edit', compact('postCategory'));
 
     }
@@ -50,45 +46,14 @@ class CategoryController extends Controller
 
     }
 
-<<<<<<< HEAD
-    public function update(PostCategoryRequest $request,PostCategory $postCategory ){
-        $inputs = $request->all();
-        $inputs["image"] = 'image';
-        $slug = str_replace(" ", "-", $inputs["name"]). "-" . Str::random(5);
-        $inputs["slug"] = $slug;
-=======
 
     public function update(PostCategoryRequest $request, PostCategory $postCategory){
 
         $inputs = $request->all();
         // $slug = str_replace(" ", "-", $inputs["name"]). "-" . Str::random(5);
         // $inputs["slug"] = $slug;
->>>>>>> 6426192f365b622e709a6af2bbfd4adf7b0c43c8
         $postCategory->update($inputs);
         return redirect()->route('admin.content.category.index');
 
     }
-<<<<<<< HEAD
-
-    public function status(PostCategory $postCategory){
-
-        $postCategory->status = $postCategory->status == 0 ? 1 : 0;
-        $result = $postCategory->save();
-        if($result){
-
-            if($postCategory->status == 0){
-                return response()->json(['status'=>true,'checked'=>false]);
-            }else{
-                return response()->json(['status'=>true,'checked'=>true]);
-
-            }
- 
-        }else{
-            return response()->json(['status'=>false]);
-        }
-        // return redirect()->route('admin.content.category.index');
-
-    }
-=======
->>>>>>> 6426192f365b622e709a6af2bbfd4adf7b0c43c8
 }
