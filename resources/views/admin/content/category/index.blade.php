@@ -101,10 +101,10 @@
 <script>
 
     function changeStatus($id){
-        // alert("Hi");
         var elem = $("#" + $id);
-        var url = element.attr('data-url');
+        var url = elem.attr('data-url');
         var elementValue = !elem.prop('checked');
+        // alert(url);
 
         $.ajax({
 
@@ -119,6 +119,7 @@
                     }
                 }else{
                     elem.prop('checked', elementValue);
+
                 }
             }
 
