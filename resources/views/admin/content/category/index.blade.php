@@ -70,12 +70,11 @@
                                     <a href="{{route('admin.content.category.edit', $postCategory->id)}}" class="btn btn-primary btn-sm">
                                         <i class="fa fa-edit"></i> ویرایش 
                                     </a>
-                                    <form class="d-inline" action="{{route('admin.content.category.destroy', $postCategory->id)}}" method="POST">
+                                    <form class="d-inline" action="{{ route('admin.content.category.destroy', $postCategory->id) }}" method="post">
                                         @csrf
-                                        {{-- {{method_field('delete')}} --}}
                                         @method('DELETE')
-                                        <button class="btn btn-danger btn-sm" type="submit">
-                                            <i class="fa fa-trash-alt"></i>حذف
+                                        <button class="btn btn-danger btn-sm delete" type="submit">
+                                            <i class="fa fa-trash-alt"></i> حذف
                                         </button>
                                     </form>
                                    
