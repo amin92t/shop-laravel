@@ -26,6 +26,8 @@
                 دسته بندی
             </h5>
 
+            @include('admin.alerts.alert-section.success')
+
 
         </section>
         <section class="d-flex justify-content-between align-items-center mb-3 border-bottom">

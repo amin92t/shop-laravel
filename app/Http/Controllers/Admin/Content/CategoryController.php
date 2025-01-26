@@ -41,7 +41,7 @@ class CategoryController extends Controller
         $inputs["slug"] = $slug;
         // $postCategory = PostCategory::create($inputs);
         PostCategory::create($inputs);
-        return redirect()->route('admin.content.category.index');
+        return redirect()->route('admin.content.category.index')->with('toast-success', "دسته بندی با موفقیت افزوده شد");
 
 
     }
