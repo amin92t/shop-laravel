@@ -29,7 +29,7 @@ class CategoryController extends Controller
 
     public function destroy(PostCategory $postCategory){
         $postCategory->delete();
-        return redirect()->route('admin.content.category.index');
+        return redirect()->route('admin.content.category.index')->with('swal-error', "دسته بندی با موفقیت حذف شد");
      
     }
 
