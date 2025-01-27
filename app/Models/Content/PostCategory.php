@@ -11,14 +11,14 @@ class PostCategory extends Model
 {
     use SoftDeletes, HasFactory, Sluggable;
 
-    public function sluggable()
-{
-    return [
-        'slug' => [
-            'source' => 'name'
-        ]
-        ];
-}
+    public function sluggable():array
+    {
+        return [
+            'slug' => [
+                'source' => 'name'
+            ]
+            ];
+    }
     protected $table = 'post_categories';  // نام جدول
     protected $guarded = ['id'];  // فیلدهای محافظت شده
     protected $fillable = ['name', 'description', 'slug', 'image', 'status', 'tags'];

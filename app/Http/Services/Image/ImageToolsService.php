@@ -34,6 +34,10 @@ class ImageToolsService
         $this->imageDirectory = trim($imageDirectory. '/\\');
     }
 
+    public function getImageName(){
+      return $this->imageName;
+   }
+
   public function setImageName($imageName){
      $this->imageName = $imageName;
   }
@@ -64,6 +68,34 @@ class ImageToolsService
 
   public function getFinalImageName(){
     return $this->finalImageName;
+  }
+
+  public function checkImageDirectory($imageDirectory){
+    if(!file_exists($imageDirectory)){
+       mkdir($imageDirectory,666, true);
+    }
+  }
+
+  public function getImageAddress(){
+    return $this->finalImageDirectory . DIRECTORY_SEPARATOR . $this->finalImageName;
+  }
+
+  public function provider(){
+
+    $this->getImageDirectory() ?? $this->setImageDirectory(date('Y') . DIRECTORY_SEPARATOR . date('m') . DIRECTORY_SEPARATOR . date('d'));
+    $this->getImageName() ?? $this->setImageName(time());
+    $this->getImageFormat() ?? $this->setImageFormat($this->image->extension());
+
+
+    $finalImageDirectory = empty($this->getExclusiveDirectory()) ? $this->getImageDirectory() : $this->getExclusiveDirectory() . DIRECTORY_SEPARATOR . $this->getImageDirectory();
+
+    $this->setFinalImageDirectory($finalImageDirectory);
+    $this->setFinalImageName($this->getImageName() . "." . $this->getImageFormat());
+
+    $this->checkImageDirectory(
+      $this->getFinalImageDirectory()
+    );
+
   }
 
 }
