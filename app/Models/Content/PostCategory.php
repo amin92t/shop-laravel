@@ -17,7 +17,7 @@ class PostCategory extends Model
         'slug' => [
             'source' => 'name'
         ]
-    ]
+        ];
 }
     protected $table = 'post_categories';  // نام جدول
     protected $guarded = ['id'];  // فیلدهای محافظت شده
