@@ -55,17 +55,15 @@ class CategoryController extends Controller
     
             }
 
+            $inputs['image'] = $result;
+            
+            // $slug = str_replace(" ", "-", $inputs["name"]). "-" . Str::random(5);
+            // $inputs["slug"] = $slug;
+            // $postCategory = PostCategory::create($inputs);
+            PostCategory::create($inputs);
+            return redirect()->route('admin.content.category.index')->with('toast-success', "دسته بندی با موفقیت افزوده شد");
+            
         }
-
-       
-
-
-        // $slug = str_replace(" ", "-", $inputs["name"]). "-" . Str::random(5);
-        // $inputs["slug"] = $slug;
-        // $postCategory = PostCategory::create($inputs);
-        PostCategory::create($inputs);
-        return redirect()->route('admin.content.category.index')->with('toast-success', "دسته بندی با موفقیت افزوده شد");
-
 
     }
 
