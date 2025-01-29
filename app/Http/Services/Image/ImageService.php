@@ -4,7 +4,7 @@ namespace App\Http\Services\Image;
 
 use Illuminate\Support\Facades\Config;
 use Intervention\Image\Laravel\Facades\Image;
-
+use App\Http\Services\Image\ImageToolsService;
 
 
 class ImageService extends ImageToolsService
@@ -15,12 +15,14 @@ class ImageService extends ImageToolsService
 
         $this->provider();
 
-        $result = Image::read($image->getRealPath())->save(public_path($image->getImageAddress()), null, $this->getImageFormat());
+        $result = Image::read($image->getRealPath())->save(public_path($this->getImageAddress()), null, $this->getImageFormat());
+
 
         return $result ? $this->getImageAddress() : false;
 
 
     }
+
 
     public function fitAndSave($image, $width, $height){
 
@@ -29,7 +31,8 @@ class ImageService extends ImageToolsService
         $this->provider();
 
    
-        $result = Image::read($image->getRealPath())->resize($width, $height)->save(public_path($image->getImageAddress()), null, $this->getImageFormat());
+        $result = Image::read($image->getRealPath())->resize($width, $height)->save(public_path($this->getImageAddress()), null, $this->getImageFormat());
+
 
         return $result ? $this->getImageAddress() : false;
 
@@ -57,7 +60,8 @@ class ImageService extends ImageToolsService
 
             $this->provider();
 
-            $result = Image::read($image->getRealPath())->resize($imageSize['width'], $imageSize['height'])->save(public_path($image->getImageAddress()), null, $this->getImageFormat());
+            $result = Image::read($image->getRealPath())->resize($imageSize['width'], $imageSize['height'])->save(public_path($this->getImageAddress()), null, $this->getImageFormat());
+
 
             if($result){
                 $indexArray[$sizeAlias] = $this->getImageAddress();
@@ -70,6 +74,8 @@ class ImageService extends ImageToolsService
          $image['indexArray'] = $indexArray;
          $image['directory'] = $this->getFinalImageDirectory();
          $image['currentImage'] = Config::get('image.default-current-index-image');
+
+         return $image;
 
     }
 

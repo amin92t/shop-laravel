@@ -50,8 +50,8 @@ class ImageToolsService
     return $this->imageFormat;
   }
 
-  public function setImageFormat($iamgeFormat){
-    $this->imageFormat = $iamgeFormat;
+  public function setImageFormat($imageFormat){
+    $this->imageFormat = $imageFormat;
   }
 
   public function getFinalImageDirectory(){
@@ -72,7 +72,9 @@ class ImageToolsService
 
   public function checkImageDirectory($imageDirectory){
     if(!file_exists($imageDirectory)){
-       mkdir($imageDirectory,666, true);
+      //  mkdir($imageDirectory,666, true);
+      mkdir($imageDirectory,0777, true);
+
     }
   }
 

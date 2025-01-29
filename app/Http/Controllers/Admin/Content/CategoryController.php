@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Content\PostCategory;
 use App\Http\Requests\Admin\Content\PostCategoryRequest;
+use App\Http\Services\Image\ImageService;
 
 class CategoryController extends Controller
 {
@@ -34,11 +35,33 @@ class CategoryController extends Controller
     }
 
     // Form Request Validation
-    public function store(PostCategoryRequest $request){
+    public function store(PostCategoryRequest $request,ImageService $imageService){
 
         $inputs = $request->all();
-        $slug = str_replace(" ", "-", $inputs["name"]). "-" . Str::random(5);
-        $inputs["slug"] = $slug;
+        if($request->hasFile("image")){
+
+            $imageService->setExclusiveDirectory('images' . DIRECTORY_SEPARATOR . 'post_category');
+
+            // dd('Hi');
+            // $result = $imageService->save($request->file('image')); //without resize
+            // $result =  $imageService->fitAndSave($request->file('image'), 600, 150);
+            // exit(); 
+            $result = $imageService->createIndexAndSave($request->file('image'));
+
+
+            if($result === false){
+
+                return redirect()->route('admin.content.category.index')->with('toast-error', 'آپلود عکس ناموفق');
+    
+            }
+
+        }
+
+       
+
+
+        // $slug = str_replace(" ", "-", $inputs["name"]). "-" . Str::random(5);
+        // $inputs["slug"] = $slug;
         // $postCategory = PostCategory::create($inputs);
         PostCategory::create($inputs);
         return redirect()->route('admin.content.category.index')->with('toast-success', "دسته بندی با موفقیت افزوده شد");

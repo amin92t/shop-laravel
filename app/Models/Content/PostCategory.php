@@ -19,7 +19,11 @@ class PostCategory extends Model
             ]
             ];
     }
+
     protected $table = 'post_categories';  // نام جدول
     protected $guarded = ['id'];  // فیلدهای محافظت شده
+
+    protected $casts = ["image" => "array"];
+    
     protected $fillable = ['name', 'description', 'slug', 'image', 'status', 'tags'];
 }
