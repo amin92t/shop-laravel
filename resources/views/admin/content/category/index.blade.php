@@ -38,55 +38,70 @@
         </section>
         <section class="table-responsive">
 
-                <table class="table table-striped table-hover">
+            <table class="table table-striped table-hover">
 
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>نام دسته بندی</th>
-                                <th>توضیحات</th>
-                                <th>slug</th>
-                                <th>عکس</th>
-                                <th>تگ ها</th>
-                                <th>وضعیت</th>
-                                <th>تنظیمات</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($postCategories as $postCategory)
-                            <tr>
-                                <th>{{$postCategory->id}}</th>
-                                <td>{{$postCategory->name}}</td>
-                                <td>{{$postCategory->description}}</td>
-                                <td>{{$postCategory->slug}}</td>
-                                <td>
-                                    <img src="{{asset($postCategory->image['indexArray'][$postCategory->image['currentImage']] )}}" >
-                                </td>
-                                <td>{{$postCategory->tags}}</td>
-                                <td>
-                                    <label>
-                                        <input id="{{$postCategory->id}}" data-url="{{route('admin.content.category.status', $postCategory->id)}}" onchange="changeStatus({{$postCategory->id}})" type="checkbox" @if($postCategory->status == 1) checked @endif >
-                                    </label>
-                                </td>
-                                <td>
-                                    <a href="{{route('admin.content.category.edit', $postCategory->id)}}" class="btn btn-primary btn-sm">
-                                        <i class="fa fa-edit"></i> ویرایش 
-                                    </a>
-                                    <form class="d-inline" action="{{ route('admin.content.category.destroy', $postCategory->id) }}" method="post">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button class="btn btn-danger btn-sm delete" type="submit">
-                                            <i class="fa fa-trash-alt"></i> حذف
-                                        </button>
-                                    </form>
-                                   
-                                </td>
-                            </tr>
-                            @endforeach
-                            
-                        </tbody>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>نام دسته بندی</th>
+                        <th>توضیحات</th>
+                        <th>slug</th>
+                        <th>عکس</th>
+                        <th>تگ ها</th>
+                        <th>وضعیت</th>
+                        <th>تنظیمات</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($postCategories as $postCategory)
+                    <tr>
+                        <th>{{$postCategory->id}}</th>
+                        <td>{{$postCategory->name}}</td>
+                        <td>{{$postCategory->description}}</td>
+                        <td>{{$postCategory->slug}}</td>
+                        <td>
+                            <img src="{{asset($postCategory->image['indexArray'][$postCategory->image['currentImage']] )}}">
+                        </td>
+                        <td>{{$postCategory->tags}}</td>
+                        <td>
 
-                </table>
+                            <label>
+                                <input id="{{ $postCategory->id }}" onchange="changeStatus({{ $postCategory->id }})" data-url="{{ route('admin.content.category.status', $postCategory->id) }}" type="checkbox" @if ($postCategory->status === 1)
+                                checked
+                                @endif>
+                            </label>
+
+                            <!-- <label class="switch">
+                                <input
+                                    id="status-toggle-{{ $postCategory->id }}"
+                                    onchange="changeStatus({{ json_encode($postCategory->id) }})"
+                                    data-url="{{ route('admin.content.category.status', $postCategory->id) }}"
+                                    type="checkbox"
+                                    {{ $postCategory->status ? 'checked' : '' }}>
+                                <span class="slider round"></span>
+                            </label> -->
+
+
+                        </td>
+                        <td>
+                            <a href="{{route('admin.content.category.edit', $postCategory->id)}}" class="btn btn-primary btn-sm">
+                                <i class="fa fa-edit"></i> ویرایش
+                            </a>
+                            <form class="d-inline" action="{{ route('admin.content.category.destroy', $postCategory->id) }}" method="post">
+                                @csrf
+                                @method('DELETE')
+                                <button class="btn btn-danger btn-sm delete" type="submit">
+                                    <i class="fa fa-trash-alt"></i> حذف
+                                </button>
+                            </form>
+
+                        </td>
+                    </tr>
+                    @endforeach
+
+                </tbody>
+
+            </table>
 
         </section>
 
@@ -100,15 +115,13 @@
 
 @section('script')
 
-<script>
+<script type="text/javascript">
+        function changeStatus(id){
+            var element = $("#" + id)
+            var url = element.attr('data-url')
+            var elementValue = !element.prop('checked');
 
-    function changeStatus($id){
-        var elem = $("#" + $id);
-        var url = elem.attr('data-url');
-        var elementValue = !elem.prop('checked');
-        // alert(url);
-
-        $.ajax({
+            $.ajax({
                 url : url,
                 type : "GET",
                 success : function(response){
@@ -166,9 +179,8 @@
                                 $(this).remove();
                             })
             }
-    }
-
-</script>
+        }
+    </script>
 
 @include('admin.alerts.sweetalert.delete-confirm', ['className'=> 'delete'])
 

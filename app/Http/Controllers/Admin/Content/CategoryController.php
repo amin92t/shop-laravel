@@ -34,6 +34,25 @@ class CategoryController extends Controller
      
     }
 
+    public function status(PostCategory $postCategory){
+    
+        $postCategory->status = $postCategory->status == 0 ? 1 : 0;
+        $result = $postCategory->save();
+        if($result){
+                if($postCategory->status == 0){
+                    return response()->json(['status' => true, 'checked' => false]);
+                }
+                else{
+                    return response()->json(['status' => true, 'checked' => true]);
+                }
+        }
+        else{
+            return response()->json(['status' => false]);
+        }
+    
+    
+    }
+
     // Form Request Validation
     public function store(PostCategoryRequest $request,ImageService $imageService){
 
@@ -57,6 +76,8 @@ class CategoryController extends Controller
 
             $inputs['image'] = $result;
             
+
+            
             // $slug = str_replace(" ", "-", $inputs["name"]). "-" . Str::random(5);
             // $inputs["slug"] = $slug;
             // $postCategory = PostCategory::create($inputs);
@@ -77,4 +98,10 @@ class CategoryController extends Controller
         return redirect()->route('admin.content.category.index');
 
     }
+
+ 
+    
+    
 }
+
+

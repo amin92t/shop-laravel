@@ -62,6 +62,6 @@ return [
         ]
         ],
 
-        'default-current-index-image' => 'medium'
+        'default-current-index-image' => 'small'
 
 ];
