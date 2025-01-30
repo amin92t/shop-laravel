@@ -95,12 +95,13 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
          * مدیریت تخفیف ها و پیشنهادها
          */
         Route::prefix('discount')->group(function () {
-            Route::get('/', [DiscountController::class, 'index'])->name('admin.market.discount.index');
-            Route::get('/coupon', [DiscountController::class, 'coupon'])->name('admin.market.discount.coupon');
-            Route::get('/common', [DiscountController::class, 'common'])->name('admin.market.discount.common');
-            Route::get('/special', [DiscountController::class, 'special'])->name('admin.market.discount.special');
-            Route::post('/store', [DiscountController::class, 'store'])->name('admin.market.discount.store');
-            Route::delete('/delete/{id}', [DiscountController::class, 'delete'])->name('admin.market.discount.delete');
+
+            Route::get('/copan', [DiscountController::class, 'copan'])->name('admin.market.discount.copan');
+            Route::get('/create', [DiscountController::class, 'copanCreate'])->name('admin.market.discount.create');
+            Route::get('/common-discount', [DiscountController::class, 'commonDiscount'])->name('admin.market.discount.commonDiscount');
+            Route::get('/common-discount/create', [DiscountController::class, 'commonDiscountCreate'])->name('admin.market.discount.commonDiscountCreate');
+            Route::get('/amazingsale', [DiscountController::class, 'amazingSale'])->name('admin.market.discount.amazingsale');
+            Route::get('/amazingsale/create', [DiscountController::class, 'amazingsaleCreate'])->name('admin.market.discount.amazingsaleCreate');
         });
 
         /**
