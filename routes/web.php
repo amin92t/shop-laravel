@@ -29,10 +29,8 @@ use App\Http\Controllers\Admin\User\PermissionController;
 use App\Http\Controllers\Admin\Content\CommentController as ContentCommentController;
 use App\Http\Controllers\Admin\Content\CategoryController as ContentCategoryController;
 
-/**
- * تعریف مسیرهای پنل مدیریت با پیشوند admin/ و Namespace مربوط به کنترلرهای ادمین
- */
-Route::prefix('admin')->namespace('Admin')->group(function () {
+
+Route::prefix('admin')->group(function () {
 
     /**
      * مسیر اصلی داشبورد مدیریت
@@ -42,7 +40,7 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
     /**
      * گروه مسیرهای ماژول Market (بخش فروش)
      */
-    Route::prefix('market')->namespace('Market')->group(function () {
+    Route::prefix('market')->group(function () {
 
         /**
          * مدیریت دسته بندی محصولات
@@ -57,6 +55,7 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
             Route::delete('/delete/{id}', [CategoryController::class, 'delete'])->name('admin.market.category.delete');
         });
 
+      
         /**
          * مدیریت برندها
          */
@@ -189,22 +188,32 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
     /**
      * گروه مسیرهای ماژول Content (بخش محتوا)
      */
-    Route::prefix('content')->namespace('Content')->group(function () {
+    Route::prefix('content')->group(function () {
 
         /**
          * مدیریت دسته بندی مطالب
          */
-        Route::prefix('category')->group(function () {
+        // Route::prefix('category')->group(function () {
 
-            Route::get('/', [ContentCategoryController::class, 'index'])->name('admin.content.category.index');
-            Route::get('/create', [ContentCategoryController::class, 'create'])->name('admin.content.category.create');
-            Route::post('/store', [ContentCategoryController::class, 'store'])->name('admin.content.category.store');
-            Route::get('/edit/{PostCategory}', [ContentCategoryController::class, 'edit'])->name('admin.content.category.edit');
-            Route::put('/update/{PostCategory}', [ContentCategoryController::class, 'update'])->name('admin.content.category.update');
-            Route::delete('/destroy/{PostCategory}', [ContentCategoryController::class, 'destroy'])->name('admin.content.category.destroy');
-            Route::get('/status/{PostCategory}', [ContentCategoryController::class, 'status'])->name('admin.content.category.status');
+        //     Route::get('/', [ContentCategoryController::class, 'index'])->name('admin.content.category.index');
+        //     Route::get('/create', [ContentCategoryController::class, 'create'])->name('admin.content.category.create');
+        //     Route::post('/store', [ContentCategoryController::class, 'store'])->name('admin.content.category.store');
+        //     Route::get('/edit/{PostCategory}', [ContentCategoryController::class, 'edit'])->name('admin.content.category.edit');
+        //     Route::put('/update/{PostCategory}', [ContentCategoryController::class, 'update'])->name('admin.content.category.update');
+        //     Route::delete('/destroy/{PostCategory}', [ContentCategoryController::class, 'destroy'])->name('admin.content.category.destroy');
+        //     Route::get('/status/{PostCategory}', [ContentCategoryController::class, 'status'])->name('admin.content.category.status');
             
+        // });
+        Route::prefix('category')->name('admin.content.category.')->group(function () {
+            Route::resource('', ContentCategoryController::class)
+                ->parameters(['' => 'PostCategory'])
+                ->except(['show']);
+        
+            Route::get('/status/{PostCategory}', [ContentCategoryController::class, 'status'])
+                ->name('status');
         });
+
+
 
         /**
          * مدیریت نظرات مطالب
@@ -271,7 +280,7 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
     /**
      * گروه مسیرهای ماژول User (کاربران)
      */
-    Route::prefix('user')->namespace('User')->group(function () {
+    Route::prefix('user')->group(function () {
 
         /**
          * مدیریت ادمین ها
@@ -325,7 +334,7 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
     /**
      * گروه مسیرهای ماژول Notify (اعلان ها)
      */
-    Route::prefix('notify')->namespace('Notify')->group(function () {
+    Route::prefix('notify')->group(function () {
 
         /**
          * مدیریت ایمیل ها

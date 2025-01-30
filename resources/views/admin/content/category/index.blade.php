@@ -71,15 +71,6 @@
                                 @endif>
                             </label>
 
-                            <!-- <label class="switch">
-                                <input
-                                    id="status-toggle-{{ $postCategory->id }}"
-                                    onchange="changeStatus({{ json_encode($postCategory->id) }})"
-                                    data-url="{{ route('admin.content.category.status', $postCategory->id) }}"
-                                    type="checkbox"
-                                    {{ $postCategory->status ? 'checked' : '' }}>
-                                <span class="slider round"></span>
-                            </label> -->
 
 
                         </td>
