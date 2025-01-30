@@ -1,4 +1,3 @@
-```php
 <?php
 
 use Illuminate\Support\Facades\Route;
@@ -29,25 +28,18 @@ use App\Http\Controllers\Admin\User\PermissionController;
 use App\Http\Controllers\Admin\Content\CommentController as ContentCommentController;
 use App\Http\Controllers\Admin\Content\CategoryController as ContentCategoryController;
 
-/**
- * تعریف مسیرهای پنل مدیریت با پیشوند admin/ و Namespace مربوط به کنترلرهای ادمین
- */
+ 
 Route::prefix('admin')->namespace('Admin')->group(function () {
 
-    /**
-     * مسیر اصلی داشبورد مدیریت
-     */
     Route::get('/', [AdminDashboardController::class, 'index'])->name('admin.index');
 
-    /**
-     * گروه مسیرهای ماژول Market (بخش فروش)
-     */
+    // Showcase -> Category
+
     Route::prefix('market')->namespace('Market')->group(function () {
 
-        /**
-         * مدیریت دسته بندی محصولات
-         */
+
         Route::prefix('category')->group(function () {
+
             Route::get('/', [CategoryController::class, 'index'])->name('admin.market.category.index');
             Route::get('/create', [CategoryController::class, 'create'])->name('admin.market.category.create');
             Route::post('/store', [CategoryController::class, 'store'])->name('admin.market.category.store');
@@ -56,10 +48,10 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
             Route::delete('/delete/{id}', [CategoryController::class, 'delete'])->name('admin.market.category.delete');
         });
 
-        /**
-         * مدیریت برندها
-         */
+
+
         Route::prefix('brand')->group(function () {
+
             Route::get('/', [BrandController::class, 'index'])->name('admin.market.brand.index');
             Route::get('/create', [BrandController::class, 'create'])->name('admin.market.brand.create');
             Route::post('/store', [BrandController::class, 'store'])->name('admin.market.brand.store');
@@ -68,21 +60,19 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
             Route::delete('/delete/{id}', [BrandController::class, 'delete'])->name('admin.market.brand.delete');
         });
 
-        /**
-         * مدیریت نظرات محصولات
-         */
+
         Route::prefix('comment')->group(function () {
+
             Route::get('/', [CommentController::class, 'index'])->name('admin.market.comment.index');
-            Route::get('/show/{id}', [CommentController::class, 'show'])->name('admin.market.comment.show');
+            Route::get('/show', [CommentController::class, 'show'])->name('admin.market.comment.show');
             Route::post('/store', [CommentController::class, 'store'])->name('admin.market.comment.store');
+            Route::get('/edit/{id}', [CommentController::class, 'edit'])->name('admin.market.comment.edit');
+            Route::put('/update/{id}', [CommentController::class, 'update'])->name('admin.market.comment.update');
             Route::delete('/delete/{id}', [CommentController::class, 'delete'])->name('admin.market.comment.delete');
-            Route::put('/approve/{id}', [CommentController::class, 'approve'])->name('admin.market.comment.approve');
         });
 
-        /**
-         * مدیریت روش های ارسال
-         */
         Route::prefix('delivery')->group(function () {
+
             Route::get('/', [DeliveryController::class, 'index'])->name('admin.market.delivery.index');
             Route::get('/create', [DeliveryController::class, 'create'])->name('admin.market.delivery.create');
             Route::post('/store', [DeliveryController::class, 'store'])->name('admin.market.delivery.store');
@@ -91,63 +81,62 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
             Route::delete('/delete/{id}', [DeliveryController::class, 'delete'])->name('admin.market.delivery.delete');
         });
 
-        /**
-         * مدیریت تخفیف ها و پیشنهادها
-         */
+
         Route::prefix('discount')->group(function () {
-            Route::get('/', [DiscountController::class, 'index'])->name('admin.market.discount.index');
-            Route::get('/coupon', [DiscountController::class, 'coupon'])->name('admin.market.discount.coupon');
-            Route::get('/common', [DiscountController::class, 'common'])->name('admin.market.discount.common');
-            Route::get('/special', [DiscountController::class, 'special'])->name('admin.market.discount.special');
-            Route::post('/store', [DiscountController::class, 'store'])->name('admin.market.discount.store');
-            Route::delete('/delete/{id}', [DiscountController::class, 'delete'])->name('admin.market.discount.delete');
+
+            Route::get('/copan', [DiscountController::class, 'copan'])->name('admin.market.discount.copan');
+            Route::get('/create', [DiscountController::class, 'copanCreate'])->name('admin.market.discount.create');
+            Route::get('/common-discount', [DiscountController::class, 'commonDiscount'])->name('admin.market.discount.commonDiscount');
+            Route::get('/common-discount/create', [DiscountController::class, 'commonDiscountCreate'])->name('admin.market.discount.commonDiscountCreate');
+            Route::get('/amazingsale', [DiscountController::class, 'amazingSale'])->name('admin.market.discount.amazingsale');
+            Route::get('/amazingsale/create', [DiscountController::class, 'amazingsaleCreate'])->name('admin.market.discount.amazingsaleCreate');
         });
 
-        /**
-         * مدیریت سفارشات
-         */
+
         Route::prefix('order')->group(function () {
+
             Route::get('/', [OrderController::class, 'index'])->name('admin.market.order.index');
-            Route::get('/new', [OrderController::class, 'new'])->name('admin.market.order.new');
+            Route::get('/new-order', [OrderController::class, 'newOrder'])->name('admin.market.order.newOrder');
             Route::get('/sending', [OrderController::class, 'sending'])->name('admin.market.order.sending');
             Route::get('/unpaid', [OrderController::class, 'unpaid'])->name('admin.market.order.unpaid');
             Route::get('/canceled', [OrderController::class, 'canceled'])->name('admin.market.order.canceled');
-            Route::get('/show/{id}', [OrderController::class, 'show'])->name('admin.market.order.show');
-            Route::post('/change-send-status/{id}', [OrderController::class, 'changeSendStatus'])->name('admin.market.order.change-send-status');
-            Route::post('/change-order-status/{id}', [OrderController::class, 'changeOrderStatus'])->name('admin.market.order.change-order-status');
+            Route::get('/returned', [OrderController::class, 'returned'])->name('admin.market.order.returned');
+            Route::get('/show', [OrderController::class, 'show'])->name('admin.market.order.show');
+            Route::get('/change-send-status', [OrderController::class, 'changeSendStatus'])->name('admin.market.order.changeSendStatus');
+            Route::get('/change-order-status
+            ', [OrderController::class, 'changeOrderStatus'])->name('admin.market.order.changeOrderStatus');
+            Route::get('/cancel-order', [OrderController::class, 'cancelOrder'])->name('admin.market.order.cancelOrder');
         });
 
-        /**
-         * مدیریت پرداخت ها
-         */
+
         Route::prefix('payment')->group(function () {
+
             Route::get('/', [PaymentController::class, 'index'])->name('admin.market.payment.index');
             Route::get('/online', [PaymentController::class, 'online'])->name('admin.market.payment.online');
             Route::get('/offline', [PaymentController::class, 'offline'])->name('admin.market.payment.offline');
             Route::get('/attendance', [PaymentController::class, 'attendance'])->name('admin.market.payment.attendance');
-            Route::get('/show/{id}', [PaymentController::class, 'show'])->name('admin.market.payment.show');
-            Route::post('/confirm/{id}', [PaymentController::class, 'confirm'])->name('admin.market.payment.confirm');
+            Route::get('/confirm', [PaymentController::class, 'confirm'])->name('admin.market.payment.confirm');
         });
 
-        /**
-         * مدیریت محصولات
-         */
         Route::prefix('product')->group(function () {
+
             Route::get('/', [ProductController::class, 'index'])->name('admin.market.product.index');
             Route::get('/create', [ProductController::class, 'create'])->name('admin.market.product.create');
+
             Route::post('/store', [ProductController::class, 'store'])->name('admin.market.product.store');
+
             Route::get('/edit/{id}', [ProductController::class, 'edit'])->name('admin.market.product.edit');
+
             Route::put('/update/{id}', [ProductController::class, 'update'])->name('admin.market.product.update');
-            Route::delete('/delete/{id}', [ProductController::class, 'delete'])->name('admin.market.product.delete');
-            Route::get('/gallery/{id}', [GalleryController::class, 'show'])->name('admin.market.product.gallery');
-            Route::post('/gallery/upload/{id}', [GalleryController::class, 'upload'])->name('admin.market.product.gallery.upload');
-            Route::delete('/gallery/delete/{id}', [GalleryController::class, 'delete'])->name('admin.market.product.gallery.delete');
+            Route::delete('/destroy/{id}', [ProductController::class, 'destroy'])->name('admin.market.product.destroy');
+            Route::get('/gallery', [GalleryController::class, 'index'])->name('admin.market.gallery.index');
+            Route::post('/gallery/store', [GalleryController::class, 'store'])->name('admin.market.gallery.index');
+            Route::delete('/gallery/destroy/{id}', [GalleryController::class, 'destroy'])->name('admin.market.gallery.index');
         });
 
-        /**
-         * مدیریت ویژگی های محصول
-         */
+
         Route::prefix('property')->group(function () {
+
             Route::get('/', [PropertyController::class, 'index'])->name('admin.market.property.index');
             Route::get('/create', [PropertyController::class, 'create'])->name('admin.market.property.create');
             Route::post('/store', [PropertyController::class, 'store'])->name('admin.market.property.store');
@@ -156,47 +145,45 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
             Route::delete('/delete/{id}', [PropertyController::class, 'delete'])->name('admin.market.property.delete');
         });
 
-        /**
-         * مدیریت انبار
-         */
+
         Route::prefix('store')->group(function () {
+
             Route::get('/', [StoreController::class, 'index'])->name('admin.market.store.index');
-            Route::get('/add-to-store/{id}', [StoreController::class, 'addToStore'])->name('admin.market.store.add-to-store');
-            Route::post('/update/{id}', [StoreController::class, 'update'])->name('admin.market.store.update');
+            Route::get('/add-to-store', [StoreController::class, 'addToStore'])->name('admin.market.store.add-to-store');
+            Route::post('/store', [StoreController::class, 'store'])->name('admin.market.store.store');
+            Route::get('/edit/{id}', [StoreController::class, 'edit'])->name('admin.market.store.edit');
+            Route::put('/update/{id}', [StoreController::class, 'update'])->name('admin.market.store.update');
+            Route::delete('/delete/{id}', [StoreController::class, 'delete'])->name('admin.market.store.delete');
         });
     });
 
-    /**
-     * گروه مسیرهای ماژول Content (بخش محتوا)
-     */
+
     Route::prefix('content')->namespace('Content')->group(function () {
 
-        /**
-         * مدیریت دسته بندی مطالب
-         */
+
         Route::prefix('category')->group(function () {
+
             Route::get('/', [ContentCategoryController::class, 'index'])->name('admin.content.category.index');
             Route::get('/create', [ContentCategoryController::class, 'create'])->name('admin.content.category.create');
             Route::post('/store', [ContentCategoryController::class, 'store'])->name('admin.content.category.store');
-            Route::get('/edit/{id}', [ContentCategoryController::class, 'edit'])->name('admin.content.category.edit');
-            Route::put('/update/{id}', [ContentCategoryController::class, 'update'])->name('admin.content.category.update');
-            Route::delete('/delete/{id}', [ContentCategoryController::class, 'delete'])->name('admin.content.category.delete');
-            Route::put('/status/{id}', [ContentCategoryController::class, 'status'])->name('admin.content.category.status');
+            Route::get('/edit/{PostCategory}', [ContentCategoryController::class, 'edit'])->name('admin.content.category.edit');
+            Route::put('/update/{PostCategory}', [ContentCategoryController::class, 'update'])->name('admin.content.category.update');
+            Route::delete('/destroy/{PostCategory}', [ContentCategoryController::class, 'destroy'])->name('admin.content.category.destroy');
+            Route::get('/status/{PostCategory}', [ContentCategoryController::class, 'status'])->name('admin.content.category.status');
+            
         });
 
-        /**
-         * مدیریت نظرات مطالب
-         */
+        
+    
         Route::prefix('comment')->group(function () {
             Route::get('/', [ContentCommentController::class, 'index'])->name('admin.content.comment.index');
-            Route::get('/show/{id}', [ContentCommentController::class, 'show'])->name('admin.content.comment.show');
-            Route::put('/status/{id}', [ContentCommentController::class, 'status'])->name('admin.content.comment.status');
+            Route::get('/show', [ContentCommentController::class, 'show'])->name('admin.content.comment.show');
+            Route::post('/store', [ContentCommentController::class, 'store'])->name('admin.content.comment.store');
+            Route::get('/edit/{id}', [ContentCommentController::class, 'edit'])->name('admin.content.comment.edit');
+            Route::put('/update/{id}', [ContentCommentController::class, 'update'])->name('admin.content.comment.update');
             Route::delete('/delete/{id}', [ContentCommentController::class, 'delete'])->name('admin.content.comment.delete');
         });
 
-        /**
-         * مدیریت سوالات متداول (FAQ)
-         */
         Route::prefix('faq')->group(function () {
             Route::get('/', [FAQController::class, 'index'])->name('admin.content.faq.index');
             Route::get('/create', [FAQController::class, 'create'])->name('admin.content.faq.create');
@@ -206,9 +193,6 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
             Route::delete('/delete/{id}', [FAQController::class, 'delete'])->name('admin.content.faq.delete');
         });
 
-        /**
-         * مدیریت منوها
-         */
         Route::prefix('menu')->group(function () {
             Route::get('/', [MenuController::class, 'index'])->name('admin.content.menu.index');
             Route::get('/create', [MenuController::class, 'create'])->name('admin.content.menu.create');
@@ -218,9 +202,7 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
             Route::delete('/delete/{id}', [MenuController::class, 'delete'])->name('admin.content.menu.delete');
         });
 
-        /**
-         * مدیریت صفحات ثابت
-         */
+        //page
         Route::prefix('page')->group(function () {
             Route::get('/', [PageController::class, 'index'])->name('admin.content.page.index');
             Route::get('/create', [PageController::class, 'create'])->name('admin.content.page.create');
@@ -230,9 +212,7 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
             Route::delete('/delete/{id}', [PageController::class, 'delete'])->name('admin.content.page.delete');
         });
 
-        /**
-         * مدیریت مقالات و پست ها
-         */
+        //post
         Route::prefix('post')->group(function () {
             Route::get('/', [PostController::class, 'index'])->name('admin.content.post.index');
             Route::get('/create', [PostController::class, 'create'])->name('admin.content.post.create');
@@ -243,14 +223,10 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
         });
     });
 
-    /**
-     * گروه مسیرهای ماژول User (کاربران)
-     */
+
     Route::prefix('user')->namespace('User')->group(function () {
 
-        /**
-         * مدیریت ادمین ها
-         */
+        //admin-user
         Route::prefix('admin-user')->group(function () {
             Route::get('/', [AdminUserController::class, 'index'])->name('admin.user.admin-user.index');
             Route::get('/create', [AdminUserController::class, 'create'])->name('admin.user.admin-user.create');
@@ -260,9 +236,7 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
             Route::delete('/delete/{id}', [AdminUserController::class, 'delete'])->name('admin.user.admin-user.delete');
         });
 
-        /**
-         * مدیریت مشتریان
-         */
+        //customer
         Route::prefix('customer')->group(function () {
             Route::get('/', [CustomerController::class, 'index'])->name('admin.user.customer.index');
             Route::get('/create', [CustomerController::class, 'create'])->name('admin.user.customer.create');
@@ -272,9 +246,7 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
             Route::delete('/delete/{id}', [CustomerController::class, 'delete'])->name('admin.user.customer.delete');
         });
 
-        /**
-         * مدیریت نقش ها
-         */
+        //role
         Route::prefix('role')->group(function () {
             Route::get('/', [RoleController::class, 'index'])->name('admin.user.role.index');
             Route::get('/create', [RoleController::class, 'create'])->name('admin.user.role.create');
@@ -284,9 +256,7 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
             Route::delete('/delete/{id}', [RoleController::class, 'delete'])->name('admin.user.role.delete');
         });
 
-        /**
-         * مدیریت دسترسی ها
-         */
+        //permission
         Route::prefix('permission')->group(function () {
             Route::get('/', [PermissionController::class, 'index'])->name('admin.user.permission.index');
             Route::get('/create', [PermissionController::class, 'create'])->name('admin.user.permission.create');
@@ -297,14 +267,10 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
         });
     });
 
-    /**
-     * گروه مسیرهای ماژول Notify (اعلان ها)
-     */
-    Route::prefix('notify')->namespace('Notify')->group(function () {
 
-        /**
-         * مدیریت ایمیل ها
-         */
+    Route::prefix(prefix: 'notify')->namespace('Notify')->group(function () {
+
+        //email
         Route::prefix('email')->group(function () {
             Route::get('/', [EmailController::class, 'index'])->name('admin.notify.email.index');
             Route::get('/create', [EmailController::class, 'create'])->name('admin.notify.email.create');
@@ -314,9 +280,7 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
             Route::delete('/delete/{id}', [EmailController::class, 'delete'])->name('admin.notify.email.delete');
         });
 
-        /**
-         * مدیریت پیامک ها
-         */
+        //sms
         Route::prefix('sms')->group(function () {
             Route::get('/', [SMSController::class, 'index'])->name('admin.notify.sms.index');
             Route::get('/create', [SMSController::class, 'create'])->name('admin.notify.sms.create');
@@ -327,25 +291,27 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
         });
     });
 
-    /**
-     * گروه مسیرهای ماژول Ticket (تیکت ها)
-     */
     Route::prefix('ticket')->namespace('Ticket')->group(function () {
+
+        Route::get('/new-tickets', [TicketController::class, 'newTickets'])->name('admin.ticket.newTickets');
+        Route::get('/open-tickets', [TicketController::class, 'openTickets'])->name('admin.ticket.openTickets');
+        Route::get('/close-tickets', [TicketController::class, 'closeTickets'])->name('admin.ticket.closeTickets');
         Route::get('/', [TicketController::class, 'index'])->name('admin.ticket.index');
-        Route::get('/new', [TicketController::class, 'new'])->name('admin.ticket.new');
-        Route::get('/open', [TicketController::class, 'open'])->name('admin.ticket.open');
-        Route::get('/close', [TicketController::class, 'close'])->name('admin.ticket.close');
-        Route::get('/show/{id}', [TicketController::class, 'show'])->name('admin.ticket.show');
-        Route::post('/answer/{id}', [TicketController::class, 'answer'])->name('admin.ticket.answer');
+        Route::get('/show', [TicketController::class, 'show'])->name('admin.ticket.show');
+        Route::get('/create', [TicketController::class, 'create'])->name('admin.ticket.create');
+        Route::post('/store', [TicketController::class, 'store'])->name('admin.ticket.store');
+        Route::get('/edit/{id}', [TicketController::class, 'edit'])->name('admin.ticket.edit');
+        Route::put('/update/{id}', [TicketController::class, 'update'])->name('admin.ticket.update');
         Route::delete('/delete/{id}', [TicketController::class, 'delete'])->name('admin.ticket.delete');
     });
 
-    /**
-     * گروه مسیرهای ماژول Setting (تنظیمات)
-     */
     Route::prefix('setting')->namespace('Setting')->group(function () {
+
         Route::get('/', [SettingController::class, 'index'])->name('admin.setting.index');
-        Route::get('/edit', [SettingController::class, 'edit'])->name('admin.setting.edit');
-        Route::put('/update', [SettingController::class, 'update'])->name('admin.setting.update');
+        Route::get('/create', [SettingController::class, 'create'])->name('admin.setting.create');
+        Route::post('/store', [SettingController::class, 'store'])->name('admin.setting.store');
+        Route::get('/edit/{id}', [SettingController::class, 'edit'])->name('admin.setting.edit');
+        Route::put('/update/{id}', [SettingController::class, 'update'])->name('admin.setting.update');
+        Route::delete('/delete/{id}', [SettingController::class, 'delete'])->name('admin.setting.delete');
     });
 });
