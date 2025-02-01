@@ -7,6 +7,11 @@ use Intervention\Image\Laravel\Facades\Image;
 use App\Http\Services\Image\ImageToolsService;
 
 
+/**
+ * Class ImageService
+ * 
+ * این کلاس برای مدیریت عملیات مربوط به تصاویر مانند ذخیره، تغییر اندازه، ایجاد تصاویر ایندکس شده و حذف تصاویر استفاده می‌شود.
+ */
 class ImageService extends ImageToolsService
 {
 
@@ -24,6 +29,15 @@ class ImageService extends ImageToolsService
     }
 
 
+      /**
+     * تغییر اندازه تصویر و ذخیره آن در مسیر مشخص شده.
+     *
+     * @param mixed $image فایل تصویری که باید ذخیره شود.
+     * @param int $width عرض مورد نظر تصویر.
+     * @param int $height ارتفاع مورد نظر تصویر.
+     * @return string|false مسیر ذخیره شده تصویر یا false در صورت عدم موفقیت.
+     */
+
     public function fitAndSave($image, $width, $height){
 
         $this->setImage($image);
@@ -37,6 +51,15 @@ class ImageService extends ImageToolsService
         return $result ? $this->getImageAddress() : false;
 
     }
+
+    
+    /**
+     * ایجاد تصاویر ایندکس شده با اندازه‌های مختلف و ذخیره آنها.
+     *
+     * @param mixed $image فایل تصویری که باید ذخیره شود.
+     * @return array|false آرایه‌ای شامل مسیرهای تصاویر ایندکس شده یا false در صورت عدم موفقیت.
+     */
+
 
     public function createIndexAndSave($image){
         $this->setImage($image);
@@ -79,17 +102,41 @@ class ImageService extends ImageToolsService
 
     }
 
+
+
+    
+    /**
+     * حذف یک تصویر از مسیر مشخص شده.
+     *
+     * @param string $imagePath مسیر فایل تصویری که باید حذف شود.
+     * @return void
+     */
+
     public function deleteImage($imagePath){
         if(file_exists($imagePath)){
             unlink($imagePath);
         }
     }
 
+
+     /**
+     * حذف تمامی تصاویر ایندکس شده و دایرکتوری مربوطه.
+     *
+     * @param array $images آرایه‌ای شامل اطلاعات تصاویر ایندکس شده.
+     * @return void
+     */
     public function deleteIndex($images){
         $directory = public_path($images['directory']);
         $this->deleteDiretoryAndFiles($directory);
     }
 
+
+     /**
+     * حذف یک دایرکتوری و تمامی فایل‌های داخل آن.
+     *
+     * @param string $directory مسیر دایرکتوری که باید حذف شود.
+     * @return bool نتیجه عملیات حذف.
+     */
     public function deleteDiretoryAndFiles($directory){
 
         if(!is_dir($directory)){
