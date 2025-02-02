@@ -3,7 +3,7 @@
 
 
 @section('head-tag')
-<title> ساخت صفحه</title>
+<title> ساخت پست</title>
 @endsection
 
 @section('content')
@@ -13,7 +13,7 @@
         <li class="breadcrumb-item"><a href="#">خانه</a></li>
         <li class="breadcrumb-item"><a href="#"></a></li>
         <li class="breadcrumb-item"><a href="#">بخش محتوی</a></li>
-        <li class="breadcrumb-item active" aria-current="page">ایجاد صفحه</li>
+        <li class="breadcrumb-item active" aria-current="page">ایجاد پست</li>
     </ol>
 </nav>
 
@@ -25,44 +25,165 @@
         <section class="main-body-container-head">
 
             <h5>
-                ایجاد صفحه
+                ایجاد پست
             </h5>
 
 
         </section>
         <section class="d-flex justify-content-between align-items-center mb-3 py-4 border-bottom">
-            <a href="{{route('admin.content.page.index')}}" class="btn btn-info btn-sm">بازگشت</a>
+            <a href="{{route('admin.content.post.index')}}" class="btn btn-info btn-sm">بازگشت</a>
         </section>
         <section>
 
-            <form action="" method="">
+            <form id="form" action="{{route('admin.content.post.store')}}" method="POST" enctype="multipart/form-data">
+                @csrf
 
                 <section class="row">
 
                     <section class="col-12 col-md-6">
                         <div class="form-group">
-                            <label for="">نام صفحه</label>
-                            <input class="form-control form-control-sm" type="text">
+                            <label for="">عنوان پست</label>
+                            <input type="text" class="form-control form-control-sm" name="title" value="{{ old('title') }}">
                         </div>
+                        @error('title')
+                        <span class="alert_required bg-danger text-white p-1 rounded" role="alert">
+                            <strong>
+                                {{ $message }}
+                            </strong>
+                        </span>
+                    @enderror
+                    </section>
+
+                    <section class="col-12 col-md-6">
+                        <div class="form-group">
+                            <label for="">انتخاب دسته</label>
+                            <select name="post_category" id="" class="form-control form-control-sm">
+                                <option value="">دسته را انتخاب کنید</option>
+                                @foreach ($postCategories as $postCategory)
+                                <option value="{{ $postCategory->id }}" @if(old('category_id') == $postCategory->id) selected @endif>{{ $postCategory->name }}</option>
+                                @endforeach
+
+                            </select>
+                        </div>
+                        @error('category_id')
+                        <span class="alert_required bg-danger text-white p-1 rounded" role="alert">
+                            <strong>
+                                {{ $message }}
+                            </strong>
+                        </span>
+                    @enderror
+                    </section>
+
+                    <section class="col-12 col-md-6">
+                        <div class="form-group">
+                            <label for="">تصویر </label>
+                            <input type="file" name="image" class="form-control form-control-sm">
+                        </div>
+                        @error('image')
+                        <span class="alert_required bg-danger text-white p-1 rounded" role="alert">
+                            <strong>
+                                {{ $message }}
+                            </strong>
+                        </span>
+                    @enderror
+                    </section>
+
+                    <section class="col-12 col-md-6">
+                        <div class="form-group">
+                            <label for="status">وضعیت</label>
+                            <select name="status" id="" class="form-control form-control-sm" id="status">
+                                <option value="0" @if(old('status') == 0) selected @endif>غیرفعال</option>
+                                <option value="1" @if(old('status') == 1) selected @endif>فعال</option>
+                            </select>
+                        </div>
+                        @error('status')
+                        <span class="alert_required bg-danger text-white p-1 rounded" role="alert">
+                            <strong>
+                                {{ $message }}
+                            </strong>
+                        </span>
+                    @enderror
                     </section>
 
 
                     <section class="col-12 col-md-6">
                         <div class="form-group">
-                            <label for="">آدرس</label>
-                            <input class="form-control form-control-sm" type="text">
+                            <label for="commentable">امکان درج کامنت</label>
+                            <select name="commentable" id="" class="form-control form-control-sm" id="commentable">
+                                <option value="0" @if(old('commentable') == 0) selected @endif>غیرفعال</option>
+                                <option value="1" @if(old('commentable') == 1) selected @endif>فعال</option>
+                            </select>
                         </div>
+                        @error('commentable')
+                        <span class="alert_required bg-danger text-white p-1 rounded" role="alert">
+                            <strong>
+                                {{ $message }}
+                            </strong>
+                        </span>
+                    @enderror
                     </section>
 
+
+
+                    <section class="col-12 col-md-6">
+                        <div class="form-group">
+                            <label for="">تاریخ انتشار</label>
+                            <input type="text" name="published_at" class="form-control form-control-sm">
+                        </div>
+                        @error('published_at')
+                        <span class="alert_required bg-danger text-white p-1 rounded" role="alert">
+                            <strong>
+                                {{ $message }}
+                            </strong>
+                        </span>
+                    @enderror
+                    </section>
 
                     <section class="col-12">
+                        <div class="form-group">
+                            <label for="tags">تگ ها</label>
+                            <input type="hidden" class="form-control form-control-sm"  name="tags" id="tags" value="{{ old('tags') }}">
+                            <select class="select2 form-control form-control-sm" id="select_tags" multiple>
 
-                         <div class="form-group">
-                            <label for="">آدرس</label>
-                            <textarea class="form-control form-control-sm" rows="10"></textarea>
+                            </select>
                         </div>
-
+                        @error('tags')
+                        <span class="alert_required bg-danger text-white p-1 rounded" role="alert">
+                            <strong>
+                                {{ $message }}
+                            </strong>
+                        </span>
+                    @enderror
                     </section>
+
+                    <section class="col-12">
+                        <div class="form-group">
+                            <label for="">خلاصه پست</label>
+                            <textarea name="summary" id="summary"  class="form-control form-control-sm" rows="3">{{ old('summary') }}</textarea>
+                        </div>
+                        @error('summary')
+                        <span class="alert_required bg-danger text-white p-1 rounded" role="alert">
+                            <strong>
+                                {{ $message }}
+                            </strong>
+                        </span>
+                    @enderror
+                    </section>
+
+                    <section class="col-12">
+                        <div class="form-group">
+                            <label for="">متن پست</label>
+                            <textarea name="body" id="body"  class="form-control form-control-sm" rows="6">{{ old('body') }}</textarea>
+                        </div>
+                        @error('body')
+                        <span class="alert_required bg-danger text-white p-1 rounded" role="alert">
+                            <strong>
+                                {{ $message }}
+                            </strong>
+                        </span>
+                    @enderror
+                    </section>
+                   
                 </section>
                 <section>
                     <button class="btn btn-primary btn-sm">ثبت</button>
@@ -78,5 +199,39 @@
 </section>
 
 
+
+@endsection
+
+
+@section('script')
+
+<script>
+    $(document).ready(function () {
+        var tags_input = $('#tags');
+        var select_tags = $('#select_tags');
+        var default_tags = tags_input.val();
+        var default_data = null;
+
+        if(tags_input.val() !== null && tags_input.val().length > 0)
+        {
+            default_data = default_tags.split(',');
+        }
+
+        select_tags.select2({
+            placeholder : 'لطفا تگ های خود را وارد نمایید',
+            tags: true,
+            data: default_data
+        });
+        select_tags.children('option').attr('selected', true).trigger('change');
+
+
+        $('#form').submit(function ( event ){
+            if(select_tags.val() !== null && select_tags.val().length > 0){
+                var selectedSource = select_tags.val().join(',');
+                tags_input.val(selectedSource)
+            }
+        })
+    })
+</script>
 
 @endsection

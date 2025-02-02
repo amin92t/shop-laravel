@@ -48,11 +48,16 @@
                             </tr>
                         </thead>
                         <tbody>
+
+                            @foreach($posts as $key => $post)
                             <tr>
-                                <th>1</th>
-                                <td>پست 1</td>
-                                <td>کالای الکترونیک</td>
-                                <th><img src=""></th>
+                                <th>{{$key += 1}}</th>
+                                <td>{{$post->title}}</td>
+                                <td>{{$post->postCategory->name}}</td>
+                                <td>
+                                    {{-- <img src="{{)}}"> --}}
+
+                                </td>
                                 <td>
                                     <a href="#" class="btn btn-primary btn-sm">
                                         <i class="fa fa-edit"></i> ویرایش 
@@ -62,6 +67,8 @@
                                     </button>
                                 </td>
                             </tr>
+
+                            @endforeach
                         </tbody>
 
                 </table>
