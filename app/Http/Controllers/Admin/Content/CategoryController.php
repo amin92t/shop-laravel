@@ -122,15 +122,39 @@ class CategoryController extends Controller
      * @param PostCategoryRequest $request - اعتبارسنجی مشابه ذخیره
      * @param PostCategory $postCategory - مدل مورد نظر از طریق Route Binding
      */
-    public function update(PostCategoryRequest $request, PostCategory $postCategory){
+    public function update(PostCategoryRequest $request, PostCategory $postCategory,ImageService $imageService){
 
         $inputs = $request->all();
         // $slug = str_replace(" ", "-", $inputs["name"]). "-" . Str::random(5);
         // $inputs["slug"] = $slug;
 
+        if($request->hasFile("image")){
 
-         // امکان افزودن منطق آپلود تصویر در ویرایش (در صورت نیاز)
-        // if($request->hasFile('image')) { ... }
+            if(!empty($postCategory->image)){
+                $imageService->deleteDiretoryAndFiles($postCategory->image);
+            }
+
+            $imageService->setExclusiveDirectory('images' . DIRECTORY_SEPARATOR . 'post_category');
+
+            $result = $imageService->createIndexAndSave($request->file('image'));
+
+
+            if($result === false){
+
+                return redirect()->route('admin.content.category.index')->with('toast-error', 'آپلود عکس ناموفق');
+    
+            }
+
+            $inputs['image'] = $result;
+          
+        }else{
+
+            $image = $postCategory->image ;
+            $image['currentImage'] = $inputs['currentImage'];
+            $inputs['image'] = $image;
+        }
+
+
         
         $postCategory->update($inputs);
         return redirect()->route('admin.content.category.index');
