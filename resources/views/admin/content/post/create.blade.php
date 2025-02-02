@@ -4,6 +4,7 @@
 
 @section('head-tag')
 <title> ساخت پست</title>
+<link rel="stylesheet" href="{{asset('admin-assets/css/jalalidatepicker/persian-datepicker.min.css')}}">
 @endsection
 
 @section('content')
@@ -128,7 +129,8 @@
                     <section class="col-12 col-md-6">
                         <div class="form-group">
                             <label for="">تاریخ انتشار</label>
-                            <input type="text" name="published_at" class="form-control form-control-sm">
+                            <input type="text" name="published_at" id="published_at" class="form-control form-control-sm d-none">
+                            <input type="text" id="published_at_view" class="form-control form-control-sm">
                         </div>
                         @error('published_at')
                         <span class="alert_required bg-danger text-white p-1 rounded" role="alert">
@@ -205,6 +207,24 @@
 
 @section('script')
 
+
+
+
+
+
+<script src="{{asset('admin-assets/js/jalaliDatepicker/persian-date.min.js')}}" >
+</script>
+<script src="{{asset('admin-assets/js/jalaliDatepicker/persian-datepicker.min.js')}}"></script>
+
+<script>
+
+$(document).ready(function(){
+        $('#published_at_view').persianDatepicker({
+               format: 'YYYY/MM/DD',
+               altField: '#published_at'
+        })
+    })
+</script>
 <script>
     $(document).ready(function () {
         var tags_input = $('#tags');
