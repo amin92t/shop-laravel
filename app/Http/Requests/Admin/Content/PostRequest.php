@@ -4,7 +4,7 @@ namespace App\Http\Requests\Admin\Content;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class PostCategoryRequest extends FormRequest
+class PostRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -21,38 +21,32 @@ class PostCategoryRequest extends FormRequest
      */
     public function rules(): array
     {
-        // dd('Hi');
+     
         if ($this->isMethod('post')) {
 
             return [
                 'name' => 'required|max:120|min:2',
-                'description' => "required|max:200|min:15",
-                'slug' => 'nullable',
+                'summary' => "required|max:200|min:15",
+                'post_category' => 'required|min:1|max:1000000|exists:post_categories,id',
                 'image' => 'required|image|mimes:jpg,png,jpeg',
-                'status' => 'required|numeric|in:0,1'
-                ,
-                'tags' => 'required|max:120|min:3'
+                'status' => 'required|numeric|in:0,1',
+                'tags' => 'required|max:120|min:3',
+                'body' => 'required|max:2000|min:15',
+                'published_at' => 'required|numeric'
             ];
         } else {
 
             return [
                 'name' => 'required|max:120|min:2',
-                'description' => "required|max:200|min:15",
-                'slug' => 'nullable',
+                'summary' => "required|max:200|min:15",
+                'post_category' => 'required|min:1|max:1000000|exists:post_categories,id',
                 'image' => 'image|mimes:jpg,png,jpeg',
                 'status' => 'required|numeric|in:0,1',
-                'tags' => 'required|max:120|min:3'
+                'tags' => 'required|max:120|min:3',
+                'body' => 'required|max:2000|min:15',
+                'published_at' => 'numeric'
             ];
         }
-    }
 
-    // public function attributes(){
-    //     return [
-    //         'name' => 'نام دسته بندی',
-    //         'description' => "توضیحات",
-    //         'image' => 'تصویر',
-    //         'status' => 'وضعیت',
-    //         'tags' => 'تگ ها'
-    //     ];
-    // }
+    }
 }

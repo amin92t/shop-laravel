@@ -36,7 +36,7 @@
         </section>
         <section>
 
-            <form id="form" action="{{route('admin.content.post.store')}}" method="POST" enctype="multipart/form-data">
+            <form id="form" action="{{route('admin.content.post.store')}}" method="post" enctype="multipart/form-data">
                 @csrf
 
                 <section class="row">
@@ -61,7 +61,7 @@
                             <select name="post_category" id="" class="form-control form-control-sm">
                                 <option value="">دسته را انتخاب کنید</option>
                                 @foreach ($postCategories as $postCategory)
-                                <option value="{{ $postCategory->id }}" @if(old('category_id') == $postCategory->id) selected @endif>{{ $postCategory->name }}</option>
+                                <option value="{{ $postCategory->id }}" @if(old('post_category') == $postCategory->id) selected @endif>{{ $postCategory->name }}</option>
                                 @endforeach
 
                             </select>

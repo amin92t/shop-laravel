@@ -21,6 +21,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Route::model('PostCategory', \App\Models\Content\PostCategory::class);
+        Route::model('Post', \App\Models\Content\Post::class);
 
     }
 }
