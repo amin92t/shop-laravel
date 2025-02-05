@@ -26,32 +26,31 @@ class PostController extends Controller
     }
 
 
-    public function store(PostRequest $request){
+    public function store(PostRequest $request, ImageService $imageService){
 
-        dd($request->all());
+        // dd('Hi');
         $inputs = $request->all();
         $realTimeStamp = substr($request->published_at, 0, 10);
         $inputs['published_at'] = date('Y-m-d H:i:s', (int) $realTimeStamp);
 
-        // پردازش تصویر اگر آپلود شده باشد
-        // if ($request->hasFile("image")) {
+        if ($request->hasFile("image")) {
 
-        //     $imageService->setExclusiveDirectory('images' . DIRECTORY_SEPARATOR . 'post');
+            $imageService->setExclusiveDirectory('images' . DIRECTORY_SEPARATOR . 'post');
 
-        //     $result = $imageService->createIndexAndSave($request->file('image'));
+            $result = $imageService->createIndexAndSave($request->file('image'));
 
-        //     if ($result === false) {
+            if ($result === false) {
 
-        //         return redirect()->route('admin.content.category.index')->with('toast-error', 'آپلود عکس ناموفق');
-        //     }
+                return redirect()->route('admin.content.category.index')->with('toast-error', 'آپلود عکس ناموفق');
+            }
 
-        //     $inputs['image'] = $result;
-
+            $inputs['image'] = $result;
 
 
-        //     $inputs['author_id'] = 1;
-        //     $post = Post::create($inputs);
-        //     return redirect()->route('admin.content.post.index')->with('swal-success', 'پست با موفقیت افزوده شد');
-        // }
+
+            $inputs['author_id'] = 1;
+            $post = Post::create($inputs);
+            return redirect()->route('admin.content.post.index')->with('swal-success', 'پست با موفقیت افزوده شد');
+        }
     }
 }

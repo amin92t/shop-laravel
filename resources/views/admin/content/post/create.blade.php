@@ -188,7 +188,7 @@
                    
                 </section>
                 <section>
-                    <button class="btn btn-primary btn-sm">ثبت</button>
+                    <button type="submit" class="btn btn-primary btn-sm">ثبت</button>
                 </section>
 
             </form>

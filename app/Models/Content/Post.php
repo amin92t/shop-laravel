@@ -2,10 +2,11 @@
 
 namespace App\Models\Content;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
+use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Cviebrock\EloquentSluggable\Sluggable;
 
 
 class Post extends Model
@@ -35,6 +36,11 @@ class Post extends Model
         
         return $this->belongsTo(PostCategory::class, 'post_category');
 
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'author_id'); // استفاده از author_id به جای user_id
     }
 
 

@@ -22,10 +22,11 @@ class PostRequest extends FormRequest
     public function rules(): array
     {
      
+      
         if ($this->isMethod('post')) {
 
             return [
-                'name' => 'required|max:120|min:2',
+                'title' => 'required|max:120|min:2',
                 'summary' => "required|max:200|min:15",
                 'post_category' => 'required|min:1|max:1000000|exists:post_categories,id',
                 'image' => 'required|image|mimes:jpg,png,jpeg',
@@ -37,7 +38,7 @@ class PostRequest extends FormRequest
         } else {
 
             return [
-                'name' => 'required|max:120|min:2',
+                'title' => 'required|max:120|min:2',
                 'summary' => "required|max:200|min:15",
                 'post_category' => 'required|min:1|max:1000000|exists:post_categories,id',
                 'image' => 'image|mimes:jpg,png,jpeg',
