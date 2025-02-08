@@ -2,47 +2,36 @@
 
 namespace App\Models\Content;
 
-use App\Models\User;
-use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Post extends Model
 {
-    use SoftDeletes, HasFactory, Sluggable;
+    use HasFactory, SoftDeletes, Sluggable;
 
-    public function sluggable():array
+    public function sluggable(): array
     {
-        return [
-            'slug' => [
+        return[
+            'slug' =>[
                 'source' => 'title'
             ]
-            ];
+        ];
     }
 
-    protected $table = 'posts';  // نام جدول
-    protected $guarded = ['id'];  // فیلدهای محافظت شده
-
-    
-    protected $casts = ["image" => "array"];
-    
-    protected $fillable = ['title', 'summary', 'slug', 'image', 'status', 'tags', 'body', 'published_at', 'author_id', 'post_category', 'commentable' ];
-
+    protected $casts = ['image' => 'array'];
+    protected $fillable = ['title', 'summary', 'slug', 'image', 'status', 'tags', 'body', 'published_at', 'author_id', 'category_id', 'commentable'];
 
     public function postCategory()
     {
-        
-        return $this->belongsTo(PostCategory::class, 'post_category');
-
+        return $this->belongsTo(PostCategory::class, 'category_id');
     }
 
-    public function user()
+    public function comments()
     {
-        return $this->belongsTo(User::class, 'author_id'); // استفاده از author_id به جای user_id
+        return $this->morphMany('App\Models\Content\Comment', 'commentable');
     }
 
 
 }
-
