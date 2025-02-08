@@ -1,4 +1,4 @@
-```php
+
 <?php
 
 use Illuminate\Support\Facades\Route;
@@ -193,17 +193,7 @@ Route::prefix('admin')->group(function () {
         /**
          * مدیریت دسته بندی مطالب
          */
-        // Route::prefix('category')->group(function () {
-
-        //     Route::get('/', [ContentCategoryController::class, 'index'])->name('admin.content.category.index');
-        //     Route::get('/create', [ContentCategoryController::class, 'create'])->name('admin.content.category.create');
-        //     Route::post('/store', [ContentCategoryController::class, 'store'])->name('admin.content.category.store');
-        //     Route::get('/edit/{PostCategory}', [ContentCategoryController::class, 'edit'])->name('admin.content.category.edit');
-        //     Route::put('/update/{PostCategory}', [ContentCategoryController::class, 'update'])->name('admin.content.category.update');
-        //     Route::delete('/destroy/{PostCategory}', [ContentCategoryController::class, 'destroy'])->name('admin.content.category.destroy');
-        //     Route::get('/status/{PostCategory}', [ContentCategoryController::class, 'status'])->name('admin.content.category.status');
-            
-        // });
+      
         Route::prefix('category')->name('admin.content.category.')->group(function () {
             Route::resource('', ContentCategoryController::class)
                 ->parameters(['' => 'PostCategory'])
@@ -218,70 +208,59 @@ Route::prefix('admin')->group(function () {
         /**
          * مدیریت نظرات مطالب
          */
-        Route::prefix('comment')->group(function(){
-            Route::get('/', [ContentCommentController::class, 'index'])->name('admin.content.comment.index');
-            Route::get('/show/{comment}', [ContentCommentController::class, 'show'])->name('admin.content.comment.show');
-            Route::delete('/destroy/{comment}', [ContentCommentController::class, 'destroy'])->name('admin.content.comment.destroy');
-            Route::get('/approved/{comment}', [ContentCommentController::class, 'approved'])->name('admin.content.comment.approved');
-            Route::get('/status/{comment}', [ContentCommentController::class, 'status'])->name('admin.content.comment.status');
-            Route::post('/answer/{comment}', [ContentCommentController::class, 'answer'])->name('admin.content.comment.answer');
-    
-    });
+        Route::prefix('comment')->name('admin.content.comment.')->group(function () {
+            Route::resource('', ContentCommentController::class)
+                ->parameters(['' => 'comment'])
+                ->except(['create', 'store', 'edit', 'update']);
+            
+            Route::get('approved/{comment}', [ContentCommentController::class, 'approved'])->name('approved');
+            Route::get('status/{comment}', [ContentCommentController::class, 'status'])->name('status');
+            Route::post('answer/{comment}', [ContentCommentController::class, 'answer'])->name('answer');
+        });
 
         /**
          * مدیریت سوالات متداول (FAQ)
          */
       
-         Route::prefix('faq')->group(function(){
-            Route::get('/', [FAQController::class, 'index'])->name('admin.content.faq.index');
-            Route::get('/create', [FAQController::class, 'create'])->name('admin.content.faq.create');
-            Route::post('/store', [FAQController::class, 'store'])->name('admin.content.faq.store');
-            Route::get('/edit/{faq}', [FAQController::class, 'edit'])->name('admin.content.faq.edit');
-            Route::put('/update/{faq}', [FAQController::class, 'update'])->name('admin.content.faq.update');
-            Route::delete('/destroy/{faq}', [FAQController::class, 'destroy'])->name('admin.content.faq.destroy');
-            Route::get('/status/{faq}', [FAQController::class, 'status'])->name('admin.content.faq.status');
-    
-    });
+         Route::prefix('faq')->name('admin.content.faq.')->group(function () {
+            Route::resource('', FAQController::class)
+                ->parameters(['' => 'faq'])
+                ->except(['show']);
+            
+            Route::get('{faq}/status', [FAQController::class, 'status'])->name('status');
+        });
 
         /**
          * مدیریت منوها
          */
-        Route::prefix('menu')->group(function(){
-            Route::get('/', [MenuController::class, 'index'])->name('admin.content.menu.index');
-            Route::get('/create', [MenuController::class, 'create'])->name('admin.content.menu.create');
-            Route::post('/store', [MenuController::class, 'store'])->name('admin.content.menu.store');
-            Route::get('/edit/{menu}', [MenuController::class, 'edit'])->name('admin.content.menu.edit');
-            Route::put('/update/{menu}', [MenuController::class, 'update'])->name('admin.content.menu.update');
-            Route::delete('/destroy/{menu}', [MenuController::class, 'destroy'])->name('admin.content.menu.destroy');
-            Route::get('/status/{menu}', [MenuController::class, 'status'])->name('admin.content.menu.status');
-    
-    });
+        Route::prefix('menu')->name('admin.content.menu.')->group(function () {
+            Route::resource('', MenuController::class)
+                ->parameters(['' => 'menu'])
+                ->except(['show']);
+            
+            Route::get('status/{menu}', [MenuController::class, 'status'])->name('status');
+        });
 
         /**
          * مدیریت صفحات ثابت
          */
-        Route::prefix('page')->group(function(){
-            Route::get('/', [PageController::class, 'index'])->name('admin.content.page.index');
-            Route::get('/create', [PageController::class, 'create'])->name('admin.content.page.create');
-            Route::post('/store', [PageController::class, 'store'])->name('admin.content.page.store');
-            Route::get('/edit/{page}', [PageController::class, 'edit'])->name('admin.content.page.edit');
-            Route::put('/update/{page}', [PageController::class, 'update'])->name('admin.content.page.update');
-            Route::delete('/destroy/{page}', [PageController::class, 'destroy'])->name('admin.content.page.destroy');
-            Route::get('/status/{page}', [PageController::class, 'status'])->name('admin.content.page.status');});
-
+        Route::prefix('page')->name('admin.content.page.')->group(function () {
+            Route::resource('', PageController::class)
+                ->parameters(['' => 'page'])
+                ->except(['show']);
+            
+            Route::get('status/{page}', [PageController::class, 'status'])->name('status');
+        });
         /**
          * مدیریت مقالات و پست ها
          */
-        Route::prefix('post')->group(function () {
-            Route::get('/', [PostController::class, 'index'])->name('admin.content.post.index');
-            Route::get('/create', [PostController::class, 'create'])->name('admin.content.post.create');
-            Route::post('/store', [PostController::class, 'store'])->name('admin.content.post.store');
-            Route::get('/edit/{post}', [PostController::class, 'edit'])->name('admin.content.post.edit');
-            Route::put('/update/{post}', [PostController::class, 'update'])->name('admin.content.post.update');
-            Route::delete('/destroy/{post}', [PostController::class, 'destroy'])->name('admin.content.post.destroy');
-            Route::get('/status/{post}', [PostController::class, 'status'])->name('admin.content.post.status');
-            Route::get('/commentable/{post}', [PostController::class, 'commentable'])->name('admin.content.post.commentable');
-
+        Route::prefix('post')->name('admin.content.post.')->group(function () {
+            Route::resource('', PostController::class)
+                ->parameters(['' => 'post'])
+                ->except(['show']);
+            
+            Route::get('status/{post}', [PostController::class, 'status'])->name('status');
+            Route::get('commentable/{post}', [PostController::class, 'commentable'])->name('commentable');
         });
     });
 
