@@ -231,14 +231,16 @@ Route::prefix('admin')->group(function () {
          * مدیریت سوالات متداول (FAQ)
          */
       
-         Route::prefix('faq')->group(function () {
+         Route::prefix('faq')->group(function(){
             Route::get('/', [FAQController::class, 'index'])->name('admin.content.faq.index');
             Route::get('/create', [FAQController::class, 'create'])->name('admin.content.faq.create');
             Route::post('/store', [FAQController::class, 'store'])->name('admin.content.faq.store');
-            Route::get('/edit/{id}', [FAQController::class, 'edit'])->name('admin.content.faq.edit');
-            Route::put('/update/{id}', [FAQController::class, 'update'])->name('admin.content.faq.update');
-            Route::delete('/delete/{id}', [FAQController::class, 'delete'])->name('admin.content.faq.delete');
-        });
+            Route::get('/edit/{faq}', [FAQController::class, 'edit'])->name('admin.content.faq.edit');
+            Route::put('/update/{faq}', [FAQController::class, 'update'])->name('admin.content.faq.update');
+            Route::delete('/destroy/{faq}', [FAQController::class, 'destroy'])->name('admin.content.faq.destroy');
+            Route::get('/status/{faq}', [FAQController::class, 'status'])->name('admin.content.faq.status');
+    
+    });
 
         /**
          * مدیریت منوها
@@ -255,14 +257,14 @@ Route::prefix('admin')->group(function () {
         /**
          * مدیریت صفحات ثابت
          */
-        Route::prefix('page')->group(function () {
+        Route::prefix('page')->group(function(){
             Route::get('/', [PageController::class, 'index'])->name('admin.content.page.index');
             Route::get('/create', [PageController::class, 'create'])->name('admin.content.page.create');
             Route::post('/store', [PageController::class, 'store'])->name('admin.content.page.store');
-            Route::get('/edit/{id}', [PageController::class, 'edit'])->name('admin.content.page.edit');
-            Route::put('/update/{id}', [PageController::class, 'update'])->name('admin.content.page.update');
-            Route::delete('/delete/{id}', [PageController::class, 'delete'])->name('admin.content.page.delete');
-        });
+            Route::get('/edit/{page}', [PageController::class, 'edit'])->name('admin.content.page.edit');
+            Route::put('/update/{page}', [PageController::class, 'update'])->name('admin.content.page.update');
+            Route::delete('/destroy/{page}', [PageController::class, 'destroy'])->name('admin.content.page.destroy');
+            Route::get('/status/{page}', [PageController::class, 'status'])->name('admin.content.page.status');});
 
         /**
          * مدیریت مقالات و پست ها
@@ -271,9 +273,12 @@ Route::prefix('admin')->group(function () {
             Route::get('/', [PostController::class, 'index'])->name('admin.content.post.index');
             Route::get('/create', [PostController::class, 'create'])->name('admin.content.post.create');
             Route::post('/store', [PostController::class, 'store'])->name('admin.content.post.store');
-            Route::get('/edit/{id}', [PostController::class, 'edit'])->name('admin.content.post.edit');
-            Route::put('/update/{id}', [PostController::class, 'update'])->name('admin.content.post.update');
-            Route::delete('/delete/{id}', [PostController::class, 'delete'])->name('admin.content.post.delete');
+            Route::get('/edit/{post}', [PostController::class, 'edit'])->name('admin.content.post.edit');
+            Route::put('/update/{post}', [PostController::class, 'update'])->name('admin.content.post.update');
+            Route::delete('/destroy/{post}', [PostController::class, 'destroy'])->name('admin.content.post.destroy');
+            Route::get('/status/{post}', [PostController::class, 'status'])->name('admin.content.post.status');
+            Route::get('/commentable/{post}', [PostController::class, 'commentable'])->name('admin.content.post.commentable');
+
         });
     });
 
