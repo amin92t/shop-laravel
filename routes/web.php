@@ -245,14 +245,16 @@ Route::prefix('admin')->group(function () {
         /**
          * مدیریت منوها
          */
-        Route::prefix('menu')->group(function () {
+        Route::prefix('menu')->group(function(){
             Route::get('/', [MenuController::class, 'index'])->name('admin.content.menu.index');
             Route::get('/create', [MenuController::class, 'create'])->name('admin.content.menu.create');
             Route::post('/store', [MenuController::class, 'store'])->name('admin.content.menu.store');
-            Route::get('/edit/{id}', [MenuController::class, 'edit'])->name('admin.content.menu.edit');
-            Route::put('/update/{id}', [MenuController::class, 'update'])->name('admin.content.menu.update');
-            Route::delete('/delete/{id}', [MenuController::class, 'delete'])->name('admin.content.menu.delete');
-        });
+            Route::get('/edit/{menu}', [MenuController::class, 'edit'])->name('admin.content.menu.edit');
+            Route::put('/update/{menu}', [MenuController::class, 'update'])->name('admin.content.menu.update');
+            Route::delete('/destroy/{menu}', [MenuController::class, 'destroy'])->name('admin.content.menu.destroy');
+            Route::get('/status/{menu}', [MenuController::class, 'status'])->name('admin.content.menu.status');
+    
+    });
 
         /**
          * مدیریت صفحات ثابت
